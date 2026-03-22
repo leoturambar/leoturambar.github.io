@@ -1,1 +1,9 @@
-
+# Esclude file temporanei e cache
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.bak
+.env
+/node_modules/
+/.vscode/
