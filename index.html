@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leonardo Maver — physicist, researcher, and builder. Portfolio." />
+  <title>Leonardo Maver</title>
+
+  <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --color-bg:      #0d0d0d;
+      --color-text:    #f0ede8;
+      --color-accent:  #c8a96e;
+      --color-muted:   rgba(240, 237, 232, 0.45);
+      --color-border:  rgba(240, 237, 232, 0.12);
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --size-xs:   0.75rem;   /*  12px */
+      --size-sm:   0.875rem;  /*  14px */
+      --size-base: 1rem;      /*  16px */
+      --size-md:   1.125rem;  /*  18px */
+      --size-lg:   1.5rem;    /*  24px */
+      --size-xl:   2rem;      /*  32px */
+      --size-2xl:  3rem;      /*  48px */
+      --size-3xl:  4.5rem;    /*  72px */
+      --size-4xl:  7rem;      /* 112px */
+
+      --transition-fast:   150ms ease;
+      --transition-medium: 300ms ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--size-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .display-italic {
+      font-family: var(--font-display);
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .label {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 8vw;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 60%, rgba(200, 169, 110, 0.04) 0%, transparent 70%),
+        var(--color-bg);
+    }
+
+    .hero__name {
+      font-family: var(--font-display);
+      font-size: var(--size-4xl);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--color-text);
+      max-width: 14ch;
+    }
+
+    .hero__tagline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-xl);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--color-muted);
+      margin-top: 2rem;
+      max-width: 32ch;
+    }
+
+    /* Scroll indicator — bottom center of viewport */
+    .hero__scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-muted);
+      animation: scroll-bounce 2s ease-in-out infinite;
+    }
+
+    .hero__scroll-label {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero__scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      margin-top: -4px;
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0);   opacity: 0.45; }
+      50%       { transform: translateX(-50%) translateY(8px); opacity: 0.75; }
+    }
+
+    /* ── Hero responsive ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero__name    { font-size: var(--size-3xl); }
+      .hero__tagline { font-size: var(--size-lg);  }
+    }
+
+    @media (max-width: 560px) {
+      .hero__name    { font-size: var(--size-2xl); }
+      .hero__tagline { font-size: var(--size-md);  }
+      .hero          { padding: 0 6vw; }
+    }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition:
+        opacity var(--transition-medium),
+        transform var(--transition-medium),
+        background-color var(--transition-medium),
+        backdrop-filter var(--transition-medium);
+    }
+
+    .nav.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav.has-bg {
+      background-color: rgba(13, 13, 13, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__wordmark {
+      font-family: var(--font-display);
+      font-size: var(--size-sm);
+      letter-spacing: 0.04em;
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav__wordmark:hover {
+      opacity: 1;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--color-accent);
+      transition: width var(--transition-medium);
+    }
+
+    .nav__link:hover {
+      color: var(--color-text);
+    }
+
+    .nav__link:hover::after {
+      width: 100%;
+    }
+
+    /* ── Nav responsive ─────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .nav           { padding: 1.25rem 6vw; }
+      .nav__links    { gap: 1.5rem; }
+      .nav__wordmark { display: none; }
+    }
+
+    /* ============================================================
+       POSITIONING SECTION
+       ============================================================ */
+    .positioning {
+      padding: 10vw 8vw;
+      max-width: 1200px;
+    }
+
+    .positioning__motif {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-2xl);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      max-width: 22ch;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+    }
+
+    .positioning__body {
+      margin-top: 2.5rem;
+      max-width: 52ch;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .positioning__body p {
+      font-family: var(--font-body);
+      font-size: var(--size-md);
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--color-muted);
+    }
+
+    .positioning__body p strong {
+      font-weight: 400;
+      color: var(--color-text);
+    }
+
+    /* ── Positioning responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .positioning        { padding: 14vw 8vw; }
+      .positioning__motif { font-size: var(--size-xl); max-width: 28ch; }
+    }
+
+    @media (max-width: 560px) {
+      .positioning        { padding: 16vw 6vw; }
+      .positioning__motif { font-size: var(--size-lg); }
+      .positioning__body p { font-size: var(--size-base); }
+    }
+
+    /* ============================================================
+       PROJECTS SECTION
+       ============================================================ */
+    .projects {
+      padding: 6vw 8vw 10vw;
+    }
+
+    .projects__header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+      margin-bottom: 5rem;
+    }
+
+    .projects__header h2 {
+      font-family: var(--font-display);
+      font-size: var(--size-lg);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+
+    .projects__header-count {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .projects__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 0 2rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--color-border);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    /* Alternate cards nudged right for stagger */
+    .project-card:nth-child(even) {
+      margin-left: 8vw;
+    }
+
+    .project-card:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .project-card__index {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      padding-top: 0.3rem;
+    }
+
+    .project-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .project-card__title {
+      font-family: var(--font-display);
+      font-size: var(--size-xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--color-text);
+      transition: color var(--transition-fast);
+    }
+
+    .project-card__pitch {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--color-muted);
+      max-width: 54ch;
+      margin-top: 0.25rem;
+    }
+
+    .project-card__stack {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      opacity: 0.65;
+      margin-top: 0.5rem;
+    }
+
+    .project-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      width: fit-content;
+    }
+
+    .project-card__link::after {
+      content: '→';
+      transition: transform var(--transition-fast);
+    }
+
+    .project-card:hover .project-card__title {
+      color: var(--color-accent);
+    }
+
+    .project-card:hover .project-card__link::after {
+      transform: translateX(4px);
+    }
+
+    /* ── Projects responsive ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .project-card:nth-child(even) { margin-left: 0; }
+      .project-card__title          { font-size: var(--size-lg); }
+    }
+
+    @media (max-width: 560px) {
+      .projects            { padding: 6vw 6vw 12vw; }
+      .projects__header    { margin-bottom: 3rem; }
+      .project-card        { grid-template-columns: 2rem 1fr; gap: 0 1rem; }
+      .project-card__title { font-size: var(--size-md); }
+      .project-card__pitch { font-size: var(--size-sm); }
+    }
+
+    /* ============================================================
+       CONTACT / FOOTER
+       ============================================================ */
+    .contact {
+      padding: 6vw 8vw 0;
+    }
+
+    .contact__header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+      margin-bottom: 4rem;
+    }
+
+    .contact__header h2 {
+      font-family: var(--font-display);
+      font-size: var(--size-lg);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+
+    .contact__links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--color-border);
+      text-decoration: none;
+      color: var(--color-text);
+      transition: color var(--transition-fast);
+    }
+
+    .contact__item:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .contact__item-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .contact__item-platform {
+      font-family: var(--font-display);
+      font-size: var(--size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      transition: color var(--transition-fast);
+    }
+
+    .contact__item-url {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--color-muted);
+      transition: color var(--transition-fast);
+    }
+
+    .contact__item-arrow {
+      font-size: var(--size-xl);
+      color: var(--color-muted);
+      transition:
+        transform var(--transition-medium),
+        color var(--transition-fast);
+      line-height: 1;
+    }
+
+    .contact__item:hover .contact__item-platform {
+      color: var(--color-accent);
+    }
+
+    .contact__item:hover .contact__item-url {
+      color: var(--color-text);
+    }
+
+    .contact__item:hover .contact__item-arrow {
+      color: var(--color-accent);
+      transform: translate(6px, -6px);
+    }
+
+    /* Copyright bar */
+    .site-footer {
+      padding: 3rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .site-footer__copy {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+
+    .site-footer__copy span {
+      color: var(--color-text);
+      font-weight: 400;
+    }
+
+    /* ── Contact responsive ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .contact__item-platform { font-size: var(--size-2xl); }
+    }
+
+    @media (max-width: 560px) {
+      .contact                { padding: 6vw 6vw 0; }
+      .contact__item          { padding: 2rem 0; }
+      .contact__item-platform { font-size: var(--size-xl); }
+      .contact__item-arrow    { font-size: var(--size-lg); }
+      .site-footer            { padding: 2.5rem 6vw; margin-top: 4rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV (fixed, revealed on scroll)
+       ============================================================ -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
+    <ul class="nav__links" role="list">
+      <li><a href="about.html"       class="nav__link">About</a></li>
+      <li><a href="experience.html"  class="nav__link">Experience</a></li>
+      <li><a href="projects.html"    class="nav__link">Projects</a></li>
+      <li><a href="contact.html"     class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" aria-label="Introduction">
+
+    <h1 class="hero__name display">Leonardo Maver</h1>
+
+    <p class="hero__tagline">
+      Physicist. Researcher.<br>Building something new.
+    </p>
+
+    <!-- Scroll indicator -->
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-label">Scroll</span>
+      <div class="hero__scroll-arrow"></div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       POSITIONING
+       ============================================================ -->
+  <section class="positioning" aria-label="About">
+
+    <p class="positioning__motif">
+      I understand how matter behaves at the nanoscale.
+      I want to work on problems that move faster.
+    </p>
+
+    <div class="positioning__body">
+      <p>
+        <strong>My background is in physics</strong> — seven years doing
+        experimental research across biomaterials, organic semiconductors,
+        and stem cell biology at IIT Milano and UC Irvine. The work was real
+        and the problems were hard, but academia moves slowly and I want more
+        leverage.
+      </p>
+      <p>
+        <strong>During the transition</strong> I've been building: three
+        Python apps integrating LLMs into actual workflows, all shipped solo,
+        all on GitHub. Not to prove I can code — to stay sharp and figure out
+        what I actually find interesting.
+      </p>
+      <p>
+        <strong>Where I'm heading:</strong> strategy and consulting in life
+        science, biotech, and deeptech. The kind of work where understanding
+        how the science actually functions is an edge, not a footnote.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       PROJECTS
+       ============================================================ -->
+  <section class="projects" aria-label="Selected projects">
+
+    <div class="projects__header">
+      <h2>Selected Projects</h2>
+      <span class="projects__header-count">03</span>
+    </div>
+
+    <ol class="projects__list" role="list">
+
+      <!-- 01 · Competitive Intelligence Tool -->
+      <li>
+        <a href="https://github.com/leoturambar/competitive-intelligence"
+           class="project-card"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Competitive Intelligence Tool — GitHub">
+          <span class="project-card__index">01</span>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Competitive Intelligence Tool</h3>
+            <p class="project-card__pitch">
+              Automated pipeline for landscape analysis in biotech and deeptech —
+              scrapes sources, extracts structured data via LLM, and produces
+              formatted HTML reports.
+            </p>
+            <p class="project-card__stack">
+              Python · Streamlit · Anthropic API · BeautifulSoup · Ollama
+            </p>
+            <span class="project-card__link" aria-hidden="true">GitHub</span>
+          </div>
+        </a>
+      </li>
+
+      <!-- 02 · Fragrance Explorer -->
+      <li>
+        <a href="https://github.com/leoturambar/fragrance-explorer"
+           class="project-card"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Fragrance Explorer — GitHub">
+          <span class="project-card__index">02</span>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Fragrance Explorer</h3>
+            <p class="project-card__pitch">
+              AI-powered personal recommender across ~20k fragrances — TF-IDF
+              on olfactory note pyramids, rating-based profile building, and
+              LLM-generated explanations.
+            </p>
+            <p class="project-card__stack">
+              Python · Streamlit · scikit-learn · Anthropic API
+            </p>
+            <span class="project-card__link" aria-hidden="true">GitHub</span>
+          </div>
+        </a>
+      </li>
+
+      <!-- 03 · Gym Tracker -->
+      <li>
+        <a href="https://github.com/leoturambar/gym-tracker"
+           class="project-card"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Gym Tracker — GitHub">
+          <span class="project-card__index">03</span>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Gym Tracker</h3>
+            <p class="project-card__pitch">
+              Training log built around the Relative Training Volume metric,
+              with AI coaching analysis to flag recovery debt and progression
+              patterns.
+            </p>
+            <p class="project-card__stack">
+              Python · Streamlit · Plotly · Anthropic API
+            </p>
+            <span class="project-card__link" aria-hidden="true">GitHub</span>
+          </div>
+        </a>
+      </li>
+
+    </ol>
+
+  </section>
+
+  <!-- ============================================================
+       CONTACT / FOOTER
+       ============================================================ -->
+  <section class="contact" aria-label="Contact">
+
+    <div class="contact__header">
+      <h2>Find me</h2>
+    </div>
+
+    <div class="contact__links">
+
+      <a href="https://github.com/leoturambar"
+         class="contact__item"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="GitHub profile">
+        <div class="contact__item-left">
+          <span class="contact__item-platform">GitHub</span>
+          <span class="contact__item-url">github.com/leoturambar</span>
+        </div>
+        <span class="contact__item-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/leoturambar"
+         class="contact__item"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="LinkedIn profile">
+        <div class="contact__item-left">
+          <span class="contact__item-platform">LinkedIn</span>
+          <span class="contact__item-url">linkedin.com/in/leoturambar</span>
+        </div>
+        <span class="contact__item-arrow" aria-hidden="true">↗</span>
+      </a>
+
+    </div>
+
+  </section>
+
+  <footer class="site-footer">
+    <p class="site-footer__copy">
+      © 2026 <span>Leonardo Maver</span>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       NAV REVEAL
+       ============================================================ */
+    (function () {
+      const nav  = document.querySelector('.nav');
+      const hero = document.querySelector('.hero');
+
+      if (!nav || !hero) return;
+
+      function onScroll() {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        if (heroBottom < 80) {
+          nav.classList.add('is-visible');
+        } else {
+          nav.classList.remove('is-visible');
+          nav.classList.remove('has-bg');
+          return;
+        }
+        if (heroBottom < 0) {
+          nav.classList.add('has-bg');
+        } else {
+          nav.classList.remove('has-bg');
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>
