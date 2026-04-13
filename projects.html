@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leonardo Maver — AI projects built during the transition from research to industry." />
+  <title>Projects — Leonardo Maver</title>
+
+  <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --color-bg:      #0d0d0d;
+      --color-text:    #f0ede8;
+      --color-accent:  #c8a96e;
+      --color-muted:   rgba(240, 237, 232, 0.45);
+      --color-border:  rgba(240, 237, 232, 0.12);
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --size-xs:   0.75rem;   /*  12px */
+      --size-sm:   0.875rem;  /*  14px */
+      --size-base: 1rem;      /*  16px */
+      --size-md:   1.125rem;  /*  18px */
+      --size-lg:   1.5rem;    /*  24px */
+      --size-xl:   2rem;      /*  32px */
+      --size-2xl:  3rem;      /*  48px */
+      --size-3xl:  4.5rem;    /*  72px */
+      --size-4xl:  7rem;      /* 112px */
+
+      --transition-fast:   150ms ease;
+      --transition-medium: 300ms ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--size-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .label {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* ============================================================
+       NAV  (identical to index.html + aria-current active state)
+       No hero on this page — nav starts visible via HTML classes.
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition:
+        opacity var(--transition-medium),
+        transform var(--transition-medium),
+        background-color var(--transition-medium),
+        backdrop-filter var(--transition-medium);
+    }
+
+    .nav.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav.has-bg {
+      background-color: rgba(13, 13, 13, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__wordmark {
+      font-family: var(--font-display);
+      font-size: var(--size-sm);
+      letter-spacing: 0.04em;
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav__wordmark:hover { opacity: 1; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--color-accent);
+      transition: width var(--transition-medium);
+    }
+
+    .nav__link:hover              { color: var(--color-text); }
+    .nav__link:hover::after       { width: 100%; }
+
+    /* Active page — permanent underline, no JS needed */
+    .nav__link[aria-current="page"]        { color: var(--color-text); }
+    .nav__link[aria-current="page"]::after { width: 100%; }
+
+    /* ── Nav responsive ─────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .nav           { padding: 1.25rem 6vw; }
+      .nav__links    { gap: 1.5rem; }
+      .nav__wordmark { display: none; }
+    }
+
+    /* ============================================================
+       PAGE HEADER
+       ============================================================ */
+    .page-header {
+      padding: 7rem 8vw 4rem;
+    }
+
+    .page-header__inner {
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+    }
+
+    .page-header__title {
+      font-family: var(--font-display);
+      font-size: var(--size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1.0;
+      color: var(--color-text);
+      margin-top: 1rem;
+      max-width: 16ch;
+    }
+
+    /* ── Page header responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .page-header__title { font-size: var(--size-2xl); }
+    }
+
+    @media (max-width: 560px) {
+      .page-header        { padding: 6rem 6vw 3rem; }
+      .page-header__title { font-size: var(--size-xl); }
+    }
+
+    /* ============================================================
+       PROJECTS LAYOUT  (two-column grid)
+       ============================================================ */
+    .projects-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0 5rem;
+      padding: 2rem 8vw 0;
+      max-width: 1400px;
+      align-items: start;
+    }
+
+    /* ── Layout responsive ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .projects-layout {
+        grid-template-columns: 1fr;
+        padding-top: 1rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .projects-layout { padding: 0.5rem 6vw 0; }
+    }
+
+    /* ============================================================
+       SIDEBAR  (desktop only, sticky)
+       ============================================================ */
+    .sidebar {
+      position: sticky;
+      top: 5.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      /* Optical alignment: first item sits near the first section title */
+      padding-top: 4rem;
+    }
+
+    .sidebar__link {
+      display: flex;
+      align-items: baseline;
+      gap: 0.85rem;
+      color: var(--color-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .sidebar__link:hover,
+    .sidebar__link.is-active {
+      color: var(--color-accent);
+    }
+
+    .sidebar__index {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+
+    .sidebar__title {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+
+    /* Hidden on tablet and mobile */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+    }
+
+    /* ============================================================
+       PROJECTS CONTENT
+       ============================================================ */
+    .projects-content {
+      min-width: 0;                  /* prevent grid column blowout */
+    }
+
+    /* ============================================================
+       PROJECT SECTIONS
+       ============================================================ */
+    .project-section {
+      padding: 4rem 0 5rem;
+      scroll-margin-top: 5.5rem;
+    }
+
+    /* Divider between sections — not above the first */
+    .project-section + .project-section {
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* Header row: index + title, mirrors homepage card grid */
+    .project-section__header {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 0 2rem;
+      align-items: baseline;
+      margin-bottom: 2.5rem;
+    }
+
+    .project-section__index {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      padding-top: 0.35rem;
+    }
+
+    .project-section__title {
+      font-family: var(--font-display);
+      font-size: var(--size-xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--color-text);
+    }
+
+    /* Body: padding-left aligns with title
+       (3rem index column + 2rem gap = 5rem) */
+    .project-section__body {
+      padding-left: 5rem;
+    }
+
+    .project-section__pitch {
+      font-family: var(--font-body);
+      font-size: var(--size-md);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--color-text);
+      max-width: 58ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-section__extended {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--color-muted);
+      max-width: 62ch;
+      margin-bottom: 2rem;
+    }
+
+    .project-section__stack {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      opacity: 0.65;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Screenshot placeholder */
+    .project-section__placeholder {
+      width: 100%;
+      max-width: 700px;
+      aspect-ratio: 16 / 9;
+      border: 1px dashed var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .project-section__placeholder span {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+      opacity: 0.5;
+    }
+
+    /* GitHub link */
+    .project-section__github {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .project-section__github::after {
+      content: '→';
+      transition: transform var(--transition-fast);
+    }
+
+    .project-section__github:hover::after {
+      transform: translateX(4px);
+    }
+
+    /* ── Project sections responsive ───────────────────────────── */
+    @media (max-width: 900px) {
+      /* Drop body indent — full width on tablet/mobile */
+      .project-section__body { padding-left: 0; }
+    }
+
+    @media (max-width: 560px) {
+      .project-section         { padding: 3rem 0 4rem; }
+      .project-section__header { grid-template-columns: 2rem 1fr; gap: 0 1rem; }
+      .project-section__title  { font-size: var(--size-lg); }
+      .project-section__pitch  { font-size: var(--size-base); }
+    }
+
+    /* ============================================================
+       FOOTER  (identical to index.html)
+       ============================================================ */
+    .site-footer {
+      padding: 3rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .site-footer__copy {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+
+    .site-footer__copy span {
+      color: var(--color-text);
+      font-weight: 400;
+    }
+
+    @media (max-width: 560px) {
+      .site-footer { padding: 2.5rem 6vw; margin-top: 4rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+       No hero on this page — is-visible and has-bg set in HTML
+       so the nav is present immediately on load, no flash.
+       ============================================================ -->
+  <nav class="nav is-visible has-bg" aria-label="Main navigation">
+    <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
+    <ul class="nav__links" role="list">
+      <li><a href="about.html"       class="nav__link">About</a></li>
+      <li><a href="experience.html"  class="nav__link">Experience</a></li>
+      <li><a href="projects.html"    class="nav__link" aria-current="page">Projects</a></li>
+      <li><a href="contact.html"     class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       PAGE HEADER
+       ============================================================ -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="label">Projects</p>
+      <h1 class="page-header__title display">Built out of curiosity.</h1>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN LAYOUT
+       ============================================================ -->
+  <div class="projects-layout">
+
+    <!-- Sidebar (desktop only, sticky) -->
+    <aside class="sidebar" aria-label="Project navigation">
+      <a href="#competitive-intelligence"
+         class="sidebar__link"
+         data-target="competitive-intelligence">
+        <span class="sidebar__index">01</span>
+        <span class="sidebar__title">Competitive Intelligence Tool</span>
+      </a>
+      <a href="#fragrance-explorer"
+         class="sidebar__link"
+         data-target="fragrance-explorer">
+        <span class="sidebar__index">02</span>
+        <span class="sidebar__title">Fragrance Explorer</span>
+      </a>
+      <a href="#gym-tracker"
+         class="sidebar__link"
+         data-target="gym-tracker">
+        <span class="sidebar__index">03</span>
+        <span class="sidebar__title">Gym Tracker</span>
+      </a>
+    </aside>
+
+    <!-- Project sections -->
+    <div class="projects-content">
+
+      <!-- ── 01 · Competitive Intelligence Tool ─────────────────── -->
+      <section id="competitive-intelligence" class="project-section">
+
+        <div class="project-section__header">
+          <span class="project-section__index">01</span>
+          <h2 class="project-section__title">Competitive Intelligence Tool</h2>
+        </div>
+
+        <div class="project-section__body">
+
+          <p class="project-section__pitch">
+            Automated pipeline for landscape analysis in biotech and deeptech —
+            scrapes sources, extracts structured data via LLM, and produces
+            formatted HTML reports.
+          </p>
+
+          <p class="project-section__extended">
+            Deep tech fields are paper-heavy by design. Most competitive mapping
+            tools miss the academic layer entirely — or return noise because they
+            have no domain context. This tool turns that constraint into a signal:
+            author affiliations in papers name the labs and institutes doing the
+            work, and those become discovery candidates. The pipeline verifies each
+            candidate against topic keywords, runs two sequential LLM passes to
+            filter and structure the results, and produces a self-contained HTML
+            report. The input parameters are fully configurable — the same pipeline
+            maps any technical landscape, not just the niche it was prototyped on.
+            A field that would take hours of unstructured searching returns a
+            structured overview in five minutes.
+          </p>
+
+          <p class="project-section__stack">
+            Python · Streamlit · Anthropic API · BeautifulSoup · Ollama
+          </p>
+
+          <div class="project-section__placeholder" aria-hidden="true">
+            <span>[assets/competitive-intelligence.gif]</span>
+          </div>
+
+          <a href="https://github.com/leoturambar/competitive-intelligence"
+             class="project-section__github"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Competitive Intelligence Tool on GitHub">
+            GitHub
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ── 02 · Fragrance Explorer ────────────────────────────── -->
+      <section id="fragrance-explorer" class="project-section">
+
+        <div class="project-section__header">
+          <span class="project-section__index">02</span>
+          <h2 class="project-section__title">Fragrance Explorer</h2>
+        </div>
+
+        <div class="project-section__body">
+
+          <p class="project-section__pitch">
+            AI-powered personal recommender across ~20k fragrances — TF-IDF on
+            olfactory note pyramids, rating-based profile building, and
+            LLM-generated explanations.
+          </p>
+
+          <p class="project-section__extended">
+            The question that made this interesting was whether a weighted TF-IDF
+            vector over olfactory note pyramids could actually capture something
+            real about taste. Fragrances are described as structured lists of notes
+            — top, middle, base — which means they can be treated as a text corpus.
+            A personal profile is built from your own ratings: each fragrance's
+            note string is weighted by how much you liked it, accumulated over time.
+            Cosine similarity finds the nearest neighbors. An avoid penalty
+            subtracts similarity to things you've rated poorly. The results look
+            promising — and the domain isn't incidental. It's a case study in what
+            happens when you apply scientific attention to something personal.
+          </p>
+
+          <p class="project-section__stack">
+            Python · Streamlit · scikit-learn · Anthropic API
+          </p>
+
+          <div class="project-section__placeholder" aria-hidden="true">
+            <span>[assets/fragrance-explorer.gif]</span>
+          </div>
+
+          <a href="https://github.com/leoturambar/fragrance-explorer"
+             class="project-section__github"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Fragrance Explorer on GitHub">
+            GitHub
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ── 03 · Gym Tracker ───────────────────────────────────── -->
+      <section id="gym-tracker" class="project-section">
+
+        <div class="project-section__header">
+          <span class="project-section__index">03</span>
+          <h2 class="project-section__title">Gym Tracker</h2>
+        </div>
+
+        <div class="project-section__body">
+
+          <p class="project-section__pitch">
+            Training log built around the Relative Training Volume metric, with AI
+            coaching analysis to flag recovery debt and progression patterns.
+          </p>
+
+          <p class="project-section__extended">
+            Raw volume — kilograms lifted, sets completed — is almost meaningless
+            without context. A 60 kg bench press means something very different to
+            a 60 kg athlete than to a 90 kg one. RTV normalizes load by bodyweight,
+            producing a dimensionless number that is comparable across time and
+            across people. The metric wasn't found — it was reasoned into existence
+            from first principles, then confirmed. The app stores bodyweight with
+            dates so historical sessions are never retroactively recalculated with
+            current weight. A radar chart maps muscle group balance against a
+            reference athlete and against your own previous periods. The LLM
+            coaching layer reads structured session data — not free text — and
+            closes every analysis with a Dodgeball quote.
+          </p>
+
+          <p class="project-section__stack">
+            Python · Streamlit · Plotly · Anthropic API
+          </p>
+
+          <div class="project-section__placeholder" aria-hidden="true">
+            <span>[assets/gym-tracker.gif]</span>
+          </div>
+
+          <a href="https://github.com/leoturambar/Gym-Tracker"
+             class="project-section__github"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Gym Tracker on GitHub">
+            GitHub
+          </a>
+
+        </div>
+      </section>
+
+    </div><!-- /.projects-content -->
+  </div><!-- /.projects-layout -->
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <p class="site-footer__copy">
+      © 2026 <span>Leonardo Maver</span>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       NAV SCROLL BEHAVIOUR
+       Nav is already visible on this page (classes set in HTML).
+       This handler only runs on pages that have a .hero element —
+       returns immediately here since no hero exists.
+       ============================================================ */
+    (function () {
+      const nav  = document.querySelector('.nav');
+      const hero = document.querySelector('.hero');
+
+      if (!nav || !hero) return;
+
+      function onScroll() {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        if (heroBottom < 80) {
+          nav.classList.add('is-visible');
+        } else {
+          nav.classList.remove('is-visible');
+          nav.classList.remove('has-bg');
+          return;
+        }
+        if (heroBottom < 0) {
+          nav.classList.add('has-bg');
+        } else {
+          nav.classList.remove('has-bg');
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+
+    /* ============================================================
+       SIDEBAR ACTIVE STATE
+       IntersectionObserver: adds .is-active to the sidebar link
+       whose section is intersecting at 30% threshold or more.
+       ============================================================ */
+    (function () {
+      const sections     = document.querySelectorAll('.project-section');
+      const sidebarLinks = document.querySelectorAll('.sidebar__link');
+
+      if (!sections.length || !sidebarLinks.length) return;
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            sidebarLinks.forEach(function (link) {
+              link.classList.toggle('is-active', link.dataset.target === id);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach(function (section) {
+        observer.observe(section);
+      });
+    })();
+  </script>
+
+</body>
+</html>
