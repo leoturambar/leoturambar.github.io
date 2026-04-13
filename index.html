@@ -325,6 +325,30 @@
       color: var(--color-text);
     }
 
+    .positioning__more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .positioning__more::after {
+      content: '→';
+      transition: transform var(--transition-fast);
+    }
+
+    .positioning__more:hover::after {
+      transform: translateX(4px);
+    }
+
     /* ── Positioning responsive ─────────────────────────────────── */
     @media (max-width: 900px) {
       .positioning        { padding: 14vw 8vw; }
@@ -359,15 +383,6 @@
       font-weight: 400;
       letter-spacing: -0.01em;
       color: var(--color-text);
-    }
-
-    .projects__header-count {
-      font-family: var(--font-body);
-      font-size: var(--size-xs);
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--color-muted);
     }
 
     .projects__list {
@@ -464,6 +479,33 @@
     }
 
     .project-card:hover .project-card__link::after {
+      transform: translateX(4px);
+    }
+
+    .projects__footer {
+      padding-top: 3rem;
+    }
+
+    .projects__view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .projects__view-all::after {
+      content: '→';
+      transition: transform var(--transition-fast);
+    }
+
+    .projects__view-all:hover::after {
       transform: translateX(4px);
     }
 
@@ -673,6 +715,9 @@
         science, biotech, and deeptech. The kind of work where understanding
         how the science actually functions is an edge, not a footnote.
       </p>
+
+      <a href="about.html" class="positioning__more">More about me</a>
+
     </div>
 
   </section>
@@ -684,18 +729,15 @@
 
     <div class="projects__header">
       <h2>Selected Projects</h2>
-      <span class="projects__header-count">03</span>
     </div>
 
     <ol class="projects__list" role="list">
 
       <!-- 01 · Competitive Intelligence Tool -->
       <li>
-        <a href="https://github.com/leoturambar/competitive-intelligence"
+        <a href="projects.html#competitive-intelligence"
            class="project-card"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Competitive Intelligence Tool — GitHub">
+           aria-label="Competitive Intelligence Tool — detail page">
           <span class="project-card__index">01</span>
           <div class="project-card__body">
             <h3 class="project-card__title">Competitive Intelligence Tool</h3>
@@ -707,18 +749,16 @@
             <p class="project-card__stack">
               Python · Streamlit · Anthropic API · BeautifulSoup · Ollama
             </p>
-            <span class="project-card__link" aria-hidden="true">GitHub</span>
+            <span class="project-card__link" aria-hidden="true">View project</span>
           </div>
         </a>
       </li>
 
       <!-- 02 · Fragrance Explorer -->
       <li>
-        <a href="https://github.com/leoturambar/fragrance-explorer"
+        <a href="projects.html#fragrance-explorer"
            class="project-card"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Fragrance Explorer — GitHub">
+           aria-label="Fragrance Explorer — detail page">
           <span class="project-card__index">02</span>
           <div class="project-card__body">
             <h3 class="project-card__title">Fragrance Explorer</h3>
@@ -730,18 +770,16 @@
             <p class="project-card__stack">
               Python · Streamlit · scikit-learn · Anthropic API
             </p>
-            <span class="project-card__link" aria-hidden="true">GitHub</span>
+            <span class="project-card__link" aria-hidden="true">View project</span>
           </div>
         </a>
       </li>
 
       <!-- 03 · Gym Tracker -->
       <li>
-        <a href="https://github.com/leoturambar/gym-tracker"
+        <a href="projects.html#gym-tracker"
            class="project-card"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Gym Tracker — GitHub">
+           aria-label="Gym Tracker — detail page">
           <span class="project-card__index">03</span>
           <div class="project-card__body">
             <h3 class="project-card__title">Gym Tracker</h3>
@@ -753,12 +791,16 @@
             <p class="project-card__stack">
               Python · Streamlit · Plotly · Anthropic API
             </p>
-            <span class="project-card__link" aria-hidden="true">GitHub</span>
+            <span class="project-card__link" aria-hidden="true">View project</span>
           </div>
         </a>
       </li>
 
     </ol>
+
+    <div class="projects__footer">
+      <a href="projects.html" class="projects__view-all">View all projects</a>
+    </div>
 
   </section>
 

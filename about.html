@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leonardo Maver — physicist, researcher, builder. About me." />
+  <title>About — Leonardo Maver</title>
+
+  <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --color-bg:      #0d0d0d;
+      --color-text:    #f0ede8;
+      --color-accent:  #c8a96e;
+      --color-muted:   rgba(240, 237, 232, 0.45);
+      --color-border:  rgba(240, 237, 232, 0.12);
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --size-xs:   0.75rem;   /*  12px */
+      --size-sm:   0.875rem;  /*  14px */
+      --size-base: 1rem;      /*  16px */
+      --size-md:   1.125rem;  /*  18px */
+      --size-lg:   1.5rem;    /*  24px */
+      --size-xl:   2rem;      /*  32px */
+      --size-2xl:  3rem;      /*  48px */
+      --size-3xl:  4.5rem;    /*  72px */
+      --size-4xl:  7rem;      /* 112px */
+
+      --transition-fast:   150ms ease;
+      --transition-medium: 300ms ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--size-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .label {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* ============================================================
+       NAV  (identical to projects.html)
+       No hero — is-visible and has-bg set in HTML.
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition:
+        opacity var(--transition-medium),
+        transform var(--transition-medium),
+        background-color var(--transition-medium),
+        backdrop-filter var(--transition-medium);
+    }
+
+    .nav.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav.has-bg {
+      background-color: rgba(13, 13, 13, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__wordmark {
+      font-family: var(--font-display);
+      font-size: var(--size-sm);
+      letter-spacing: 0.04em;
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav__wordmark:hover { opacity: 1; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--color-accent);
+      transition: width var(--transition-medium);
+    }
+
+    .nav__link:hover              { color: var(--color-text); }
+    .nav__link:hover::after       { width: 100%; }
+
+    /* Active page — permanent underline, no JS needed */
+    .nav__link[aria-current="page"]        { color: var(--color-text); }
+    .nav__link[aria-current="page"]::after { width: 100%; }
+
+    /* ── Nav responsive ─────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .nav           { padding: 1.25rem 6vw; }
+      .nav__links    { gap: 1.5rem; }
+      .nav__wordmark { display: none; }
+    }
+
+    /* ============================================================
+       PAGE HEADER
+       ============================================================ */
+    .page-header {
+      padding: 7rem 8vw 3rem;
+    }
+
+    .page-header__inner {
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+      max-width: 780px;
+    }
+
+    /* Opening motif — large italic statement, functions as h1 */
+    .page-header__motif {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-2xl);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-top: 1.25rem;
+    }
+
+    /* ── Page header responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .page-header__motif { font-size: var(--size-xl); }
+    }
+
+    @media (max-width: 560px) {
+      .page-header        { padding: 6rem 6vw 2.5rem; }
+      .page-header__motif { font-size: var(--size-lg); }
+    }
+
+    /* ============================================================
+       ABOUT BODY
+       ============================================================ */
+    .about-body {
+      padding: 0 8vw;
+    }
+
+    /* ============================================================
+       ABOUT SECTIONS
+       Each section breathes with generous vertical padding.
+       No decorative borders — whitespace does the work.
+       ============================================================ */
+    .about-section {
+      max-width: 780px;
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .about-section:first-child {
+      border-top: none;
+      padding-top: 3rem;
+    }
+
+    /* Body text */
+    .about-section p {
+      font-family: var(--font-body);
+      font-size: var(--size-md);
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--color-muted);
+    }
+
+    /* Paragraph spacing within a section */
+    .about-section p + p {
+      margin-top: 1.5rem;
+    }
+
+    /* Key phrases — full brightness, slightly heavier */
+    .about-section p strong {
+      color: var(--color-text);
+      font-weight: 400;
+    }
+
+    /* ── About sections responsive ──────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-section     { padding: 3.5rem 0; }
+      .about-section p   { font-size: var(--size-base); }
+    }
+
+    @media (max-width: 560px) {
+      .about-body        { padding: 0 6vw; }
+      .about-section     { padding: 3rem 0; }
+    }
+
+    /* ============================================================
+       CLOSING PULL QUOTE
+       Treated as a standalone beat — generous top margin,
+       no label, no border decoration.
+       ============================================================ */
+    .closing-quote {
+      padding: 0 8vw 5rem;
+      margin-top: 5rem;
+    }
+
+    .closing-quote__text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-2xl);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      max-width: 780px;
+    }
+
+    /* ── Closing quote responsive ───────────────────────────────── */
+    @media (max-width: 900px) {
+      .closing-quote__text { font-size: var(--size-xl); }
+    }
+
+    @media (max-width: 560px) {
+      .closing-quote        { padding: 0 6vw 4rem; margin-top: 3.5rem; }
+      .closing-quote__text  { font-size: var(--size-lg); }
+    }
+
+    /* ============================================================
+       FOOTER  (identical to index.html)
+       ============================================================ */
+    .site-footer {
+      padding: 3rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .site-footer__copy {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+
+    .site-footer__copy span {
+      color: var(--color-text);
+      font-weight: 400;
+    }
+
+    @media (max-width: 560px) {
+      .site-footer { padding: 2.5rem 6vw; margin-top: 2rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+       No hero — is-visible and has-bg set in HTML.
+       ============================================================ -->
+  <nav class="nav is-visible has-bg" aria-label="Main navigation">
+    <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
+    <ul class="nav__links" role="list">
+      <li><a href="about.html"       class="nav__link" aria-current="page">About</a></li>
+      <li><a href="experience.html"  class="nav__link">Experience</a></li>
+      <li><a href="projects.html"    class="nav__link">Projects</a></li>
+      <li><a href="contact.html"     class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       PAGE HEADER
+       ============================================================ -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="label">About</p>
+      <h1 class="page-header__motif">
+        Seven years making cells do things they weren't supposed to.
+        The science was real. I'm ready for problems that move faster,
+        and pay better.
+      </h1>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       ABOUT BODY
+       ============================================================ -->
+  <div class="about-body">
+
+    <!-- ── The lab ──────────────────────────────────────────────── -->
+    <section class="about-section" aria-label="The lab">
+      <p>
+        My PhD was in physics, but <strong>the lab was cross-disciplinary
+        from day one</strong> — physicists working with biologists, engineers
+        working with clinicians, everyone translating for everyone else.
+        I became good at that translation. And at something harder to name:
+        the kind of problem-solving that looks like luck from the outside.
+        Machines that wouldn't work for anyone else would work for me.
+        Not magic — just <strong>patience, systematic thinking, and a refusal
+        to accept that something broken couldn't be understood</strong>.
+      </p>
+      <p>
+        The work I'm most proud of isn't in any paper. It's a microscopy
+        analysis macro with instance segmentation that
+        <strong>reduced processing time by 80%</strong>. A custom double
+        patch-clamp setup assembled from parts and stubbornness. Arduino code
+        that ran overnight experiments so I didn't have to. Things that
+        <strong>made the lab function better and made other people's work
+        easier</strong>. I cared about that — probably more than I needed to.
+      </p>
+    </section>
+
+    <!-- ── The drift ────────────────────────────────────────────── -->
+    <section class="about-section" aria-label="The drift">
+      <p>
+        I was still uncertain when I moved to California. The uncertainty
+        resolved itself quickly. Working every weekend will do that. So will
+        the slow realization that <strong>the system isn't broken — it's
+        working exactly as designed, and it wasn't designed for people
+        like me</strong>.
+      </p>
+      <p>
+        What the US gave me, unexpectedly, was scale. A different kind of
+        distance from everything familiar forces a certain clarity. I understood
+        what I was good at, what I wanted, and what I was no longer willing to
+        trade away. <strong>At 34, not being able to afford a used car is not
+        a temporary condition to endure — it's information.</strong>
+      </p>
+    </section>
+
+    <!-- ── The builder ──────────────────────────────────────────── -->
+    <section class="about-section" aria-label="The builder">
+      <p>
+        The transition has been active, not passive. Mornings: job applications
+        and case study practice. Afternoons: building. Three Python apps shipped
+        solo, all integrating LLMs into real workflows —
+        <strong>not to prove I can code, but because I find the problems
+        genuinely interesting</strong> and because the fastest way to understand
+        a technology is to use it for something you actually care about.
+      </p>
+      <p>
+        The competitive intelligence tool maps technical landscapes in five
+        minutes. The fragrance recommender applies NLP to olfactory note
+        pyramids. The gym tracker normalizes training load by bodyweight so
+        the numbers mean something over time.
+        <strong>All three started from curiosity. All three are on GitHub.</strong>
+      </p>
+    </section>
+
+    <!-- ── The rest of it ───────────────────────────────────────── -->
+    <section class="about-section" aria-label="The rest of it">
+      <p>
+        I visited most of the major art museums in Europe before I was thirty.
+        I wrote my PhD thesis in LaTeX with a custom typography package because
+        the default looked bad and that bothered me. I study fragrance note
+        pyramids with the same attention I brought to experimental design.
+        I care about fabrics, cities, the way a room is lit.
+      </p>
+      <p>
+        The same filter runs through everything else: I read fiction and essays
+        and poetry and manga, but only if the writing is actually good. I watch
+        films for the craft or the ideas, rarely for the spectacle. I play video
+        games that are atmospheric and story-rich — small, precise indie things,
+        not MMOs. I listen to metal for the technical density, to
+        singer-songwriters for the opposite reason, and to most things in between
+        depending on the day. I travel by train whenever possible, because the
+        point is to arrive somewhere genuinely different and pay attention to it.
+        I play football and volleyball and do kickboxing, mostly because moving
+        well matters and because it keeps everything else in balance.
+      </p>
+      <p>
+        <strong>This isn't separate from the scientific work — it's the same
+        sensibility.</strong> Precision. Attention. The conviction that how
+        something is made matters, not just whether it functions. I bring that
+        to everything I do, which is either a strength or an inconvenience
+        depending on the context.
+      </p>
+    </section>
+
+  </div><!-- /.about-body -->
+
+  <!-- ============================================================
+       CLOSING PULL QUOTE
+       ============================================================ -->
+  <div class="closing-quote">
+    <p class="closing-quote__text">
+      "My life is too large to be shrinking again."
+    </p>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <p class="site-footer__copy">
+      © 2026 <span>Leonardo Maver</span>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+       Nav scroll logic — returns immediately on this page
+       since no .hero element exists.
+       ============================================================ -->
+  <script>
+    (function () {
+      const nav  = document.querySelector('.nav');
+      const hero = document.querySelector('.hero');
+      if (!nav || !hero) return;
+
+      function onScroll() {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        if (heroBottom < 80) {
+          nav.classList.add('is-visible');
+        } else {
+          nav.classList.remove('is-visible');
+          nav.classList.remove('has-bg');
+          return;
+        }
+        if (heroBottom < 0) {
+          nav.classList.add('has-bg');
+        } else {
+          nav.classList.remove('has-bg');
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>
