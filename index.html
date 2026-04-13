@@ -284,6 +284,51 @@
     }
 
     /* ============================================================
+       HOME WRAPPER
+       Two-column layout: left scrolls, right is sticky.
+       Collapses to single column below 900px.
+       ============================================================ */
+    .home-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      align-items: start;
+    }
+
+    .home-wrapper__left {
+      /* contains .hero and .positioning — no changes needed */
+    }
+
+    .home-wrapper__right {
+      position: sticky;
+      top: 50vh;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 8vw;
+      pointer-events: none;
+    }
+
+    .home-lm {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 18rem;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: var(--color-text);
+      opacity: 0.04;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* Hide entirely on tablet and mobile */
+    @media (max-width: 900px) {
+      .home-wrapper        { display: block; }
+      .home-wrapper__right { display: none; }
+    }
+
+    /* ============================================================
        POSITIONING SECTION
        ============================================================ */
     .positioning {
@@ -356,8 +401,8 @@
     }
 
     @media (max-width: 560px) {
-      .positioning        { padding: 16vw 6vw; }
-      .positioning__motif { font-size: var(--size-lg); }
+      .positioning         { padding: 16vw 6vw; }
+      .positioning__motif  { font-size: var(--size-lg); }
       .positioning__body p { font-size: var(--size-base); }
     }
 
@@ -668,59 +713,72 @@
   </nav>
 
   <!-- ============================================================
-       HERO
+       HOME WRAPPER
+       Left column scrolls; right column holds sticky LM monogram.
+       Placeholder for photo — replace .home-lm with <img> when ready.
        ============================================================ -->
-  <section class="hero" aria-label="Introduction">
+  <div class="home-wrapper">
+    <div class="home-wrapper__left">
 
-    <h1 class="hero__name display">Leonardo Maver</h1>
+      <!-- ── HERO ──────────────────────────────────────────────── -->
+      <section class="hero" aria-label="Introduction">
 
-    <p class="hero__tagline">
-      Physicist. Researcher.<br>Building something new.
-    </p>
+        <h1 class="hero__name display">Leonardo Maver</h1>
 
-    <!-- Scroll indicator -->
-    <div class="hero__scroll" aria-hidden="true">
-      <span class="hero__scroll-label">Scroll</span>
-      <div class="hero__scroll-arrow"></div>
+        <p class="hero__tagline">
+          Physicist. Researcher.<br>Building something new.
+        </p>
+
+        <!-- Scroll indicator -->
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-label">Scroll</span>
+          <div class="hero__scroll-arrow"></div>
+        </div>
+
+      </section>
+
+      <!-- ── POSITIONING ───────────────────────────────────────── -->
+      <section class="positioning" aria-label="About">
+
+        <p class="positioning__motif">
+          I understand how matter behaves at the nanoscale.
+          I want to work on problems that move faster.
+        </p>
+
+        <div class="positioning__body">
+          <p>
+            <strong>My background is in physics</strong> — seven years doing
+            experimental research across biomaterials, organic semiconductors,
+            and stem cell biology at IIT Milano and UC Irvine. The work was real
+            and the problems were hard, but academia moves slowly and I want more
+            leverage.
+          </p>
+          <p>
+            <strong>During the transition</strong> I've been building: three
+            Python apps integrating LLMs into actual workflows, all shipped solo,
+            all on GitHub. Not to prove I can code — to stay sharp and figure out
+            what I actually find interesting.
+          </p>
+          <p>
+            <strong>Where I'm heading:</strong> strategy and consulting in life
+            science, biotech, and deeptech. The kind of work where understanding
+            how the science actually functions is an edge, not a footnote.
+          </p>
+
+          <a href="about.html" class="positioning__more">More about me</a>
+
+        </div>
+
+      </section>
+
+    </div><!-- /.home-wrapper__left -->
+
+    <!-- Decorative sticky monogram — placeholder for photo -->
+    <div class="home-wrapper__right" aria-hidden="true">
+      <span class="home-lm">LM</span>
     </div>
 
-  </section>
-
-  <!-- ============================================================
-       POSITIONING
-       ============================================================ -->
-  <section class="positioning" aria-label="About">
-
-    <p class="positioning__motif">
-      I understand how matter behaves at the nanoscale.
-      I want to work on problems that move faster.
-    </p>
-
-    <div class="positioning__body">
-      <p>
-        <strong>My background is in physics</strong> — seven years doing
-        experimental research across biomaterials, organic semiconductors,
-        and stem cell biology at IIT Milano and UC Irvine. The work was real
-        and the problems were hard, but academia moves slowly and I want more
-        leverage.
-      </p>
-      <p>
-        <strong>During the transition</strong> I've been building: three
-        Python apps integrating LLMs into actual workflows, all shipped solo,
-        all on GitHub. Not to prove I can code — to stay sharp and figure out
-        what I actually find interesting.
-      </p>
-      <p>
-        <strong>Where I'm heading:</strong> strategy and consulting in life
-        science, biotech, and deeptech. The kind of work where understanding
-        how the science actually functions is an edge, not a footnote.
-      </p>
-
-      <a href="about.html" class="positioning__more">More about me</a>
-
-    </div>
-
-  </section>
+  </div><!-- /.home-wrapper -->
 
   <!-- ============================================================
        PROJECTS
