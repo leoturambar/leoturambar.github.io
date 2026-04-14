@@ -116,13 +116,7 @@
       flex-direction: column;
       justify-content: center;
       padding: 0 8vw;
-      background:
-        radial-gradient(
-          ellipse 80% 60% at 75% 55%,
-          rgba(200, 169, 110, 0.055) 0%,
-          transparent 70%
-        ),
-        var(--color-bg);
+      /* Background moved to .home-wrapper so gradient spans both columns */
     }
 
     .hero__name {
@@ -295,7 +289,14 @@
     .home-wrapper {
       display: grid;
       grid-template-columns: 1fr 340px;
-      align-items: stretch;
+      /* Gradient spans both columns — covers the full two-column width */
+      background:
+        radial-gradient(
+          ellipse 80% 60% at 75% 50%,
+          rgba(200, 169, 110, 0.055) 0%,
+          transparent 70%
+        ),
+        var(--color-bg);
     }
 
     .home-wrapper__left {
@@ -305,7 +306,7 @@
     .home-wrapper__right {
       position: sticky;
       top: 0;
-      align-self: center;
+      height: 100vh;         /* column acts as a full-viewport panel */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -869,7 +870,7 @@
   <!-- ============================================================
        CONTACT / FOOTER
        ============================================================ -->
-  <section class="contact" aria-label="Contact">
+  <section id="contact" class="contact" aria-label="Contact">
 
     <div class="contact__header">
       <h2>Find me</h2>
