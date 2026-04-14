@@ -424,10 +424,32 @@
       transform: translateX(4px);
     }
 
+    /* ── Project section inner grid (text left, visual right) ───── */
+    .project-section__grid {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .project-section__visual {
+      position: sticky;
+      top: 5.5rem;
+    }
+
     /* ── Project sections responsive ───────────────────────────── */
     @media (max-width: 900px) {
       /* Drop body indent — full width on tablet/mobile */
       .project-section__body { padding-left: 0; }
+
+      .project-section__grid {
+        display: block;
+      }
+
+      .project-section__visual {
+        position: static;
+        margin-top: 2.5rem;
+      }
     }
 
     @media (max-width: 560px) {
@@ -481,7 +503,7 @@
       <li><a href="about.html"       class="nav__link">About</a></li>
       <li><a href="experience.html"  class="nav__link">Experience</a></li>
       <li><a href="projects.html"    class="nav__link" aria-current="page">Projects</a></li>
-      <li><a href="contact.html"     class="nav__link">Contact</a></li>
+      <li><a href="index.html#contact" class="nav__link">Contact</a></li>
     </ul>
   </nav>
 
@@ -534,43 +556,49 @@
         </div>
 
         <div class="project-section__body">
+          <div class="project-section__grid">
 
-          <p class="project-section__pitch">
-            Automated pipeline for landscape analysis in biotech and deeptech —
-            scrapes sources, extracts structured data via LLM, and produces
-            formatted HTML reports.
-          </p>
+            <div class="project-section__text">
+              <p class="project-section__pitch">
+                Automated pipeline for landscape analysis in biotech and deeptech —
+                scrapes sources, extracts structured data via LLM, and produces
+                formatted HTML reports.
+              </p>
 
-          <p class="project-section__extended">
-            Deep tech fields are paper-heavy by design. Most competitive mapping
-            tools miss the academic layer entirely — or return noise because they
-            have no domain context. This tool turns that constraint into a signal:
-            author affiliations in papers name the labs and institutes doing the
-            work, and those become discovery candidates. The pipeline verifies each
-            candidate against topic keywords, runs two sequential LLM passes to
-            filter and structure the results, and produces a self-contained HTML
-            report. The input parameters are fully configurable — the same pipeline
-            maps any technical landscape, not just the niche it was prototyped on.
-            A field that would take hours of unstructured searching returns a
-            structured overview in five minutes.
-          </p>
+              <p class="project-section__extended">
+                Deep tech fields are paper-heavy by design. Most competitive mapping
+                tools miss the academic layer entirely — or return noise because they
+                have no domain context. This tool turns that constraint into a signal:
+                author affiliations in papers name the labs and institutes doing the
+                work, and those become discovery candidates. The pipeline verifies each
+                candidate against topic keywords, runs two sequential LLM passes to
+                filter and structure the results, and produces a self-contained HTML
+                report. The input parameters are fully configurable — the same pipeline
+                maps any technical landscape, not just the niche it was prototyped on.
+                A field that would take hours of unstructured searching returns a
+                structured overview in five minutes.
+              </p>
 
-          <p class="project-section__stack">
-            Python · Streamlit · Anthropic API · BeautifulSoup · Ollama
-          </p>
+              <p class="project-section__stack">
+                Python · Streamlit · Anthropic API · BeautifulSoup · Ollama
+              </p>
 
-          <div class="project-section__placeholder" aria-hidden="true">
-            <span>[assets/competitive-intelligence.gif]</span>
+              <a href="https://github.com/leoturambar/competitive-intelligence"
+                 class="project-section__github"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Competitive Intelligence Tool on GitHub">
+                GitHub
+              </a>
+            </div>
+
+            <div class="project-section__visual">
+              <div class="project-section__placeholder" aria-hidden="true">
+                <span>[assets/competitive-intelligence.gif]</span>
+              </div>
+            </div>
+
           </div>
-
-          <a href="https://github.com/leoturambar/competitive-intelligence"
-             class="project-section__github"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Competitive Intelligence Tool on GitHub">
-            GitHub
-          </a>
-
         </div>
       </section>
 
@@ -583,42 +611,48 @@
         </div>
 
         <div class="project-section__body">
+          <div class="project-section__grid">
 
-          <p class="project-section__pitch">
-            AI-powered personal recommender across ~20k fragrances — TF-IDF on
-            olfactory note pyramids, rating-based profile building, and
-            LLM-generated explanations.
-          </p>
+            <div class="project-section__text">
+              <p class="project-section__pitch">
+                AI-powered personal recommender across ~20k fragrances — TF-IDF on
+                olfactory note pyramids, rating-based profile building, and
+                LLM-generated explanations.
+              </p>
 
-          <p class="project-section__extended">
-            The question that made this interesting was whether a weighted TF-IDF
-            vector over olfactory note pyramids could actually capture something
-            real about taste. Fragrances are described as structured lists of notes
-            — top, middle, base — which means they can be treated as a text corpus.
-            A personal profile is built from your own ratings: each fragrance's
-            note string is weighted by how much you liked it, accumulated over time.
-            Cosine similarity finds the nearest neighbors. An avoid penalty
-            subtracts similarity to things you've rated poorly. The results look
-            promising — and the domain isn't incidental. It's a case study in what
-            happens when you apply scientific attention to something personal.
-          </p>
+              <p class="project-section__extended">
+                The question that made this interesting was whether a weighted TF-IDF
+                vector over olfactory note pyramids could actually capture something
+                real about taste. Fragrances are described as structured lists of notes
+                — top, middle, base — which means they can be treated as a text corpus.
+                A personal profile is built from your own ratings: each fragrance's
+                note string is weighted by how much you liked it, accumulated over time.
+                Cosine similarity finds the nearest neighbors. An avoid penalty
+                subtracts similarity to things you've rated poorly. The results look
+                promising — and the domain isn't incidental. It's a case study in what
+                happens when you apply scientific attention to something personal.
+              </p>
 
-          <p class="project-section__stack">
-            Python · Streamlit · scikit-learn · Anthropic API
-          </p>
+              <p class="project-section__stack">
+                Python · Streamlit · scikit-learn · Anthropic API
+              </p>
 
-          <div class="project-section__placeholder" aria-hidden="true">
-            <span>[assets/fragrance-explorer.gif]</span>
+              <a href="https://github.com/leoturambar/fragrance-explorer"
+                 class="project-section__github"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Fragrance Explorer on GitHub">
+                GitHub
+              </a>
+            </div>
+
+            <div class="project-section__visual">
+              <div class="project-section__placeholder" aria-hidden="true">
+                <span>[assets/fragrance-explorer.gif]</span>
+              </div>
+            </div>
+
           </div>
-
-          <a href="https://github.com/leoturambar/fragrance-explorer"
-             class="project-section__github"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Fragrance Explorer on GitHub">
-            GitHub
-          </a>
-
         </div>
       </section>
 
@@ -631,42 +665,48 @@
         </div>
 
         <div class="project-section__body">
+          <div class="project-section__grid">
 
-          <p class="project-section__pitch">
-            Training log built around the Relative Training Volume metric, with AI
-            coaching analysis to flag recovery debt and progression patterns.
-          </p>
+            <div class="project-section__text">
+              <p class="project-section__pitch">
+                Training log built around the Relative Training Volume metric, with AI
+                coaching analysis to flag recovery debt and progression patterns.
+              </p>
 
-          <p class="project-section__extended">
-            Raw volume — kilograms lifted, sets completed — is almost meaningless
-            without context. A 60 kg bench press means something very different to
-            a 60 kg athlete than to a 90 kg one. RTV normalizes load by bodyweight,
-            producing a dimensionless number that is comparable across time and
-            across people. The metric wasn't found — it was reasoned into existence
-            from first principles, then confirmed. The app stores bodyweight with
-            dates so historical sessions are never retroactively recalculated with
-            current weight. A radar chart maps muscle group balance against a
-            reference athlete and against your own previous periods. The LLM
-            coaching layer reads structured session data — not free text — and
-            closes every analysis with a Dodgeball quote.
-          </p>
+              <p class="project-section__extended">
+                Raw volume — kilograms lifted, sets completed — is almost meaningless
+                without context. A 60 kg bench press means something very different to
+                a 60 kg athlete than to a 90 kg one. RTV normalizes load by bodyweight,
+                producing a dimensionless number that is comparable across time and
+                across people. The metric wasn't found — it was reasoned into existence
+                from first principles, then confirmed. The app stores bodyweight with
+                dates so historical sessions are never retroactively recalculated with
+                current weight. A radar chart maps muscle group balance against a
+                reference athlete and against your own previous periods. The LLM
+                coaching layer reads structured session data — not free text — and
+                closes every analysis with a Dodgeball quote.
+              </p>
 
-          <p class="project-section__stack">
-            Python · Streamlit · Plotly · Anthropic API
-          </p>
+              <p class="project-section__stack">
+                Python · Streamlit · Plotly · Anthropic API
+              </p>
 
-          <div class="project-section__placeholder" aria-hidden="true">
-            <span>[assets/gym-tracker.gif]</span>
+              <a href="https://github.com/leoturambar/Gym-Tracker"
+                 class="project-section__github"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Gym Tracker on GitHub">
+                GitHub
+              </a>
+            </div>
+
+            <div class="project-section__visual">
+              <div class="project-section__placeholder" aria-hidden="true">
+                <span>[assets/gym-tracker.gif]</span>
+              </div>
+            </div>
+
           </div>
-
-          <a href="https://github.com/leoturambar/Gym-Tracker"
-             class="project-section__github"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Gym Tracker on GitHub">
-            GitHub
-          </a>
-
         </div>
       </section>
 
