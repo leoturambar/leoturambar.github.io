@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leonardo Maver — research experience, education, and publications." />
+  <title>Experience — Leonardo Maver</title>
+
+  <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --color-bg:      #0d0d0d;
+      --color-text:    #f0ede8;
+      --color-accent:  #c8a96e;
+      --color-muted:   rgba(240, 237, 232, 0.45);
+      --color-border:  rgba(240, 237, 232, 0.12);
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --size-xs:   0.75rem;   /*  12px */
+      --size-sm:   0.875rem;  /*  14px */
+      --size-base: 1rem;      /*  16px */
+      --size-md:   1.125rem;  /*  18px */
+      --size-lg:   1.5rem;    /*  24px */
+      --size-xl:   2rem;      /*  32px */
+      --size-2xl:  3rem;      /*  48px */
+      --size-3xl:  4.5rem;    /*  72px */
+      --size-4xl:  7rem;      /* 112px */
+
+      --transition-fast:   150ms ease;
+      --transition-medium: 300ms ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--size-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .label {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition:
+        opacity var(--transition-medium),
+        transform var(--transition-medium),
+        background-color var(--transition-medium),
+        backdrop-filter var(--transition-medium);
+    }
+
+    .nav.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav.has-bg {
+      background-color: rgba(13, 13, 13, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__wordmark {
+      font-family: var(--font-display);
+      font-size: var(--size-sm);
+      letter-spacing: 0.04em;
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav__wordmark:hover { opacity: 1; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--color-accent);
+      transition: width var(--transition-medium);
+    }
+
+    .nav__link:hover              { color: var(--color-text); }
+    .nav__link:hover::after       { width: 100%; }
+
+    .nav__link[aria-current="page"]        { color: var(--color-text); }
+    .nav__link[aria-current="page"]::after { width: 100%; }
+
+    @media (max-width: 560px) {
+      .nav           { padding: 1.25rem 6vw; }
+      .nav__links    { gap: 1.5rem; }
+      .nav__wordmark { display: none; }
+    }
+
+    /* ============================================================
+       PAGE HEADER
+       ============================================================ */
+    .page-header {
+      padding: 7rem 8vw 4rem;
+    }
+
+    .page-header__inner {
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+    }
+
+    .page-header__motif {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-2xl);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-top: 1rem;
+      max-width: 28ch;
+    }
+
+    @media (max-width: 900px) {
+      .page-header__motif { font-size: var(--size-xl); }
+    }
+
+    @media (max-width: 560px) {
+      .page-header        { padding: 6rem 6vw 3rem; }
+      .page-header__motif { font-size: var(--size-lg); }
+    }
+
+    /* ============================================================
+       PAGE LAYOUT  (main content left, timeline right)
+       ============================================================ */
+    .experience-layout {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 0 5rem;
+      padding: 2rem 8vw 0;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .experience-layout {
+        grid-template-columns: 1fr;
+        padding-top: 1rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .experience-layout { padding: 0.5rem 6vw 0; }
+    }
+
+    /* ============================================================
+       MAIN CONTENT
+       ============================================================ */
+    .experience-content {
+      min-width: 0;
+      padding-bottom: 8rem;
+    }
+
+    /* ============================================================
+       EXPERIENCE SECTIONS
+       ============================================================ */
+    .exp-section {
+      padding: 3.5rem 0 4rem;
+      scroll-margin-top: 5.5rem;
+    }
+
+    .exp-section + .exp-section {
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Section header ─────────────────────────────────────────── */
+    .exp-section__period {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 500;
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-section__title {
+      font-family: var(--font-display);
+      font-size: var(--size-xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--color-text);
+      margin-bottom: 0.35rem;
+    }
+
+    .exp-section__institution {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 300;
+      color: var(--color-muted);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Thesis line ────────────────────────────────────────────── */
+    .exp-section__thesis {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--color-muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+      max-width: 58ch;
+    }
+
+    /* ── Bullet list ────────────────────────────────────────────── */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      max-width: 64ch;
+    }
+
+    .exp-list__item {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 300;
+      color: var(--color-muted);
+      line-height: 1.75;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .exp-list__item::before {
+      content: '–';
+      color: var(--color-accent);
+      flex-shrink: 0;
+      font-weight: 300;
+    }
+
+    .exp-list__item strong {
+      font-weight: 400;
+      color: var(--color-text);
+    }
+
+    /* ── Sub-section (Leadership etc.) ─────────────────────────── */
+    .exp-subsection {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .exp-subsection__label {
+      margin-bottom: 1rem;
+    }
+
+    /* ── Publications sub-groups ────────────────────────────────── */
+    .exp-section__intro {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--color-muted);
+      margin-bottom: 2rem;
+      max-width: 52ch;
+    }
+
+    .pub-group {
+      margin-top: 2rem;
+    }
+
+    .pub-group:first-child {
+      margin-top: 0;
+    }
+
+    .pub-group__label {
+      margin-bottom: 0.75rem;
+    }
+
+    .pub-placeholder {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 300;
+      color: var(--color-muted);
+      line-height: 1.65;
+      border-left: 2px dashed var(--color-border);
+      padding-left: 1rem;
+      margin-bottom: 0.75rem;
+      max-width: 58ch;
+    }
+
+    @media (max-width: 560px) {
+      .exp-section        { padding: 2.5rem 0 3rem; }
+      .exp-section__title { font-size: var(--size-lg); }
+    }
+
+    /* ============================================================
+       RIGHT TIMELINE  (sticky, desktop only)
+       ============================================================ */
+    .timeline {
+      position: sticky;
+      top: 5.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+      /* Height determined by content */
+    }
+
+    /* Vertical line running through all nodes */
+    .timeline__track {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      background-color: var(--color-border);
+      z-index: 0;
+    }
+
+    /* Individual node wrapper */
+    .timeline__node {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 1.25rem 0;
+      width: 100%;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Year label */
+    .timeline__year {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      color: var(--color-muted);
+      letter-spacing: 0.06em;
+      transition: color var(--transition-fast);
+    }
+
+    /* Short title label */
+    .timeline__role {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 300;
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.4;
+      transition: color var(--transition-fast);
+    }
+
+    /* Circle */
+    .timeline__dot {
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition:
+        border-color var(--transition-fast),
+        background-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    /* BSc / MSc — outline only, 12px */
+    .timeline__dot--outline {
+      width: 12px;
+      height: 12px;
+      background: transparent;
+      border: 1.5px solid var(--color-muted);
+    }
+
+    /* PhD — half-filled (left accent, right transparent), 14px */
+    .timeline__dot--half {
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(
+        to right,
+        var(--color-accent) 50%,
+        transparent 50%
+      );
+      border: 1.5px solid var(--color-accent);
+    }
+
+    /* Postdoc — fully filled, 16px */
+    .timeline__dot--filled {
+      width: 16px;
+      height: 16px;
+      background: var(--color-accent);
+      border: none;
+    }
+
+    /* Active state — node highlighted */
+    .timeline__node.is-active .timeline__year,
+    .timeline__node.is-active .timeline__role {
+      color: var(--color-text);
+    }
+
+    .timeline__node.is-active .timeline__dot--outline {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.18);
+    }
+
+    .timeline__node.is-active .timeline__dot--half {
+      box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.18);
+    }
+
+    .timeline__node.is-active .timeline__dot--filled {
+      box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.25);
+    }
+
+    /* Hidden on tablet and mobile */
+    @media (max-width: 900px) {
+      .timeline { display: none; }
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      padding: 3rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .site-footer__copy {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+
+    .site-footer__copy span {
+      color: var(--color-text);
+      font-weight: 400;
+    }
+
+    @media (max-width: 560px) {
+      .site-footer { padding: 2.5rem 6vw; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+       ============================================================ -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
+    <ul class="nav__links" role="list">
+      <li><a href="about.html"         class="nav__link">About</a></li>
+      <li><a href="experience.html"    class="nav__link" aria-current="page">Experience</a></li>
+      <li><a href="projects.html"      class="nav__link">Projects</a></li>
+      <li><a href="skills.html"        class="nav__link">Skills</a></li>
+      <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       PAGE HEADER
+       ============================================================ -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="label">Experience</p>
+      <h1 class="page-header__motif">
+        Seven years at the edge of what materials can do to living systems.
+      </h1>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN LAYOUT
+       ============================================================ -->
+  <div class="experience-layout">
+
+    <!-- ── Main content ──────────────────────────────────────────── -->
+    <div class="experience-content">
+
+      <!-- BSc -->
+      <section id="bsc" class="exp-section">
+        <p class="exp-section__period">2013 – 2015</p>
+        <h2 class="exp-section__title">BSc in Physics</h2>
+        <p class="exp-section__institution">Università degli Studi di Milano-Bicocca</p>
+        <p class="exp-section__thesis">
+          Thesis: Studio di arrays di SiPM per la lettura di scintillatori veloci.
+        </p>
+      </section>
+
+      <!-- MSc -->
+      <section id="msc" class="exp-section">
+        <p class="exp-section__period">2015 – 2017</p>
+        <h2 class="exp-section__title">MSc in Particle Physics &amp; Applied Physics</h2>
+        <p class="exp-section__institution">Università degli Studi di Milano-Bicocca</p>
+        <p class="exp-section__thesis">
+          Thesis: Characterization of Transition-Edge Sensors for the direct measurement of neutrino mass.
+        </p>
+      </section>
+
+      <!-- PhD -->
+      <section id="phd" class="exp-section">
+        <p class="exp-section__period">2018 – 2022</p>
+        <h2 class="exp-section__title">PhD in Physics, cum laude</h2>
+        <p class="exp-section__institution">Politecnico di Milano &amp; CNST@IIT, Milan</p>
+        <p class="exp-section__thesis">
+          Thesis: From thermal to mechanical: shedding light on novel ways to control cell fate.
+        </p>
+        <ul class="exp-list" role="list">
+          <li class="exp-list__item">
+            <strong>Designed and built experimental platforms</strong> integrating biomaterials,
+            organic semiconductors, and cell biology — working across physics, engineering,
+            and biology from day one.
+          </li>
+          <li class="exp-list__item">
+            <strong>Developed automated microscopy analysis pipeline</strong> with deep
+            learning-based instance segmentation (Cellpose), reducing processing time by 80%
+            and becoming the go-to reference for image analysis within the group.
+          </li>
+          <li class="exp-list__item">
+            <strong>Built custom Arduino-based stimulation platforms</strong> enabling automated
+            overnight experiments, increasing throughput and reducing manual intervention.
+          </li>
+          <li class="exp-list__item">
+            <strong>Acted as technical bridge</strong> across interdisciplinary collaborations
+            with national and international partners — translating between nanomaterials
+            engineering and cell biology to align experimental objectives.
+          </li>
+          <li class="exp-list__item">
+            <strong>Introduced reproducible computational workflows</strong> adopted across
+            multiple projects.
+          </li>
+        </ul>
+      </section>
+
+      <!-- IIT Postdoc -->
+      <section id="iit-postdoc" class="exp-section">
+        <p class="exp-section__period">Nov 2022 – Oct 2023</p>
+        <h2 class="exp-section__title">Postdoctoral Researcher</h2>
+        <p class="exp-section__institution">CNST@IIT, Milan</p>
+        <ul class="exp-list" role="list">
+          <li class="exp-list__item">
+            <strong>Scaled automated microscopy analysis pipeline</strong> to full production
+            use — reduced average analysis time from 2–3 days to 4 hours through full-cell
+            segmentation.
+          </li>
+          <li class="exp-list__item">
+            <strong>Coordinated experimental activities and timelines</strong> across multiple
+            parallel projects, aligning priorities with senior researchers.
+          </li>
+          <li class="exp-list__item">
+            <strong>Maintained and extended computational workflows,</strong> improving
+            measurement precision and reproducibility across the group.
+          </li>
+        </ul>
+      </section>
+
+      <!-- UCI Postdoc -->
+      <section id="uci-postdoc" class="exp-section">
+        <p class="exp-section__period">Apr 2024 – Aug 2025</p>
+        <h2 class="exp-section__title">Postdoctoral Researcher</h2>
+        <p class="exp-section__institution">University of California, Irvine</p>
+        <ul class="exp-list" role="list">
+          <li class="exp-list__item">
+            <strong>Designed and validated experimental platform</strong> integrating
+            biomaterials and microfabrication for iPSC-derived cardiomyocyte maturation —
+            zero contamination across 1.5 years of continuous operation.
+          </li>
+          <li class="exp-list__item">
+            <strong>Identified and resolved critical failure point</strong> in substrate
+            preparation, reducing failure rate from 50% to under 5%.
+          </li>
+          <li class="exp-list__item">
+            <strong>Introduced microelectrode array (MEA) electrophysiology</strong> as a new
+            lab capability — learned the technique from scratch, established analysis protocols
+            adopted by the group.
+          </li>
+          <li class="exp-list__item">
+            <strong>Evaluated multiple experimental conditions</strong> through comparative
+            data analysis, delivering recommendations that informed project go/no-go decisions
+            presented to senior stakeholders.
+          </li>
+          <li class="exp-list__item">
+            <strong>Trained 3 researchers</strong> on electrophysiology protocols.
+          </li>
+        </ul>
+
+        <!-- Leadership & Community sub-block -->
+        <div class="exp-subsection">
+          <p class="label exp-subsection__label">Leadership &amp; Community</p>
+          <ul class="exp-list" role="list">
+            <li class="exp-list__item">
+              <strong>UCI Postdoctoral Association — Board Member,</strong> Jun 2024 – Aug 2025.
+              Co-organized 20+ events and a 74-attendee cross-department symposium connecting
+              researchers with academic and industry speakers.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Publications & Presentations -->
+      <section id="publications" class="exp-section">
+        <p class="exp-section__period">&nbsp;</p>
+        <h2 class="exp-section__title">Selected Publications &amp; Presentations</h2>
+        <p class="exp-section__institution">&nbsp;</p>
+        <p class="exp-section__intro">
+          Peer-reviewed research and international conference presentations.
+        </p>
+
+        <div class="pub-group">
+          <p class="label pub-group__label">Publication</p>
+          <p class="pub-placeholder">
+            [PLACEHOLDER — peer-reviewed paper. Format: Authors. Title. Journal, Year. DOI.]
+          </p>
+        </div>
+
+        <div class="pub-group">
+          <p class="label pub-group__label">Oral Presentations</p>
+          <p class="pub-placeholder">
+            [PLACEHOLDER — international conference oral 1. Format: Title. Conference name, location, year.]
+          </p>
+          <p class="pub-placeholder">
+            [PLACEHOLDER — international conference oral 2. Format: Title. Conference name, location, year.]
+          </p>
+        </div>
+      </section>
+
+    </div><!-- /.experience-content -->
+
+    <!-- ── Sticky timeline (desktop only) ───────────────────────── -->
+    <aside class="timeline" aria-label="Career timeline" aria-hidden="true">
+
+      <div class="timeline__track"></div>
+
+      <a href="#bsc" class="timeline__node" data-target="bsc">
+        <span class="timeline__year">2013</span>
+        <span class="timeline__dot timeline__dot--outline"></span>
+        <span class="timeline__role">BSc</span>
+      </a>
+
+      <a href="#msc" class="timeline__node" data-target="msc">
+        <span class="timeline__year">2015</span>
+        <span class="timeline__dot timeline__dot--outline"></span>
+        <span class="timeline__role">MSc</span>
+      </a>
+
+      <a href="#phd" class="timeline__node" data-target="phd">
+        <span class="timeline__year">2018</span>
+        <span class="timeline__dot timeline__dot--half"></span>
+        <span class="timeline__role">PhD</span>
+      </a>
+
+      <a href="#iit-postdoc" class="timeline__node" data-target="iit-postdoc">
+        <span class="timeline__year">2022</span>
+        <span class="timeline__dot timeline__dot--filled"></span>
+        <span class="timeline__role">IIT Postdoc</span>
+      </a>
+
+      <a href="#uci-postdoc" class="timeline__node" data-target="uci-postdoc">
+        <span class="timeline__year">2024</span>
+        <span class="timeline__dot timeline__dot--filled"></span>
+        <span class="timeline__role">UCI Postdoc</span>
+      </a>
+
+    </aside>
+
+  </div><!-- /.experience-layout -->
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <p class="site-footer__copy">
+      © 2026 <span>Leonardo Maver</span>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       NAV — show immediately (no hero on this page)
+       ============================================================ */
+    (function () {
+      const nav = document.querySelector('.nav');
+      if (!nav) return;
+      document.addEventListener('DOMContentLoaded', function () {
+        nav.classList.add('is-visible', 'has-bg');
+      });
+    })();
+
+    /* ============================================================
+       TIMELINE ACTIVE STATE
+       IntersectionObserver: highlights the timeline node whose
+       section is intersecting at ≥30% threshold.
+       ============================================================ */
+    (function () {
+      const sections       = document.querySelectorAll('.exp-section');
+      const timelineNodes  = document.querySelectorAll('.timeline__node');
+
+      if (!sections.length || !timelineNodes.length) return;
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            timelineNodes.forEach(function (node) {
+              node.classList.toggle('is-active', node.dataset.target === id);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach(function (section) {
+        observer.observe(section);
+      });
+    })();
+  </script>
+
+</body>
+</html>
