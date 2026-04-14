@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leonardo Maver — skills, tools, and domain expertise." />
+  <title>Skills — Leonardo Maver</title>
+
+  <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --color-bg:      #0d0d0d;
+      --color-text:    #f0ede8;
+      --color-accent:  #c8a96e;
+      --color-muted:   rgba(240, 237, 232, 0.45);
+      --color-border:  rgba(240, 237, 232, 0.12);
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --size-xs:   0.75rem;   /*  12px */
+      --size-sm:   0.875rem;  /*  14px */
+      --size-base: 1rem;      /*  16px */
+      --size-md:   1.125rem;  /*  18px */
+      --size-lg:   1.5rem;    /*  24px */
+      --size-xl:   2rem;      /*  32px */
+      --size-2xl:  3rem;      /*  48px */
+      --size-3xl:  4.5rem;    /*  72px */
+      --size-4xl:  7rem;      /* 112px */
+
+      --transition-fast:   150ms ease;
+      --transition-medium: 300ms ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--size-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .label {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* ============================================================
+       NAV  (identical to projects.html — visible immediately)
+       No hero on this page — is-visible and has-bg set on DOMContentLoaded.
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition:
+        opacity var(--transition-medium),
+        transform var(--transition-medium),
+        background-color var(--transition-medium),
+        backdrop-filter var(--transition-medium);
+    }
+
+    .nav.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav.has-bg {
+      background-color: rgba(13, 13, 13, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__wordmark {
+      font-family: var(--font-display);
+      font-size: var(--size-sm);
+      letter-spacing: 0.04em;
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav__wordmark:hover { opacity: 1; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--color-accent);
+      transition: width var(--transition-medium);
+    }
+
+    .nav__link:hover              { color: var(--color-text); }
+    .nav__link:hover::after       { width: 100%; }
+
+    /* Active page — permanent underline */
+    .nav__link[aria-current="page"]        { color: var(--color-text); }
+    .nav__link[aria-current="page"]::after { width: 100%; }
+
+    /* ── Nav responsive ─────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .nav           { padding: 1.25rem 6vw; }
+      .nav__links    { gap: 1.5rem; }
+      .nav__wordmark { display: none; }
+    }
+
+    /* ============================================================
+       PAGE HEADER
+       ============================================================ */
+    .page-header {
+      padding: 7rem 8vw 4rem;
+    }
+
+    .page-header__inner {
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--color-accent);
+    }
+
+    .page-header__motif {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-2xl);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-top: 1rem;
+      max-width: 28ch;
+    }
+
+    /* ── Page header responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .page-header__motif { font-size: var(--size-xl); }
+    }
+
+    @media (max-width: 560px) {
+      .page-header        { padding: 6rem 6vw 3rem; }
+      .page-header__motif { font-size: var(--size-lg); }
+    }
+
+    /* ============================================================
+       SKILLS LAYOUT  (two-column: main left, index right)
+       ============================================================ */
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 0 5rem;
+      padding: 2rem 8vw 0;
+      max-width: 1400px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .skills-layout {
+        grid-template-columns: 1fr;
+        padding-top: 1rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .skills-layout { padding: 0.5rem 6vw 0; }
+    }
+
+    /* ============================================================
+       RIGHT INDEX  (sticky category navigation)
+       ============================================================ */
+    .skills-index {
+      position: sticky;
+      top: 5.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding-top: 1rem;
+      /* Visual alignment: sits next to first section */
+    }
+
+    .skills-index__link {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      line-height: 1.5;
+    }
+
+    .skills-index__link:hover,
+    .skills-index__link.is-active {
+      color: var(--color-accent);
+    }
+
+    /* Hidden on tablet and mobile */
+    @media (max-width: 900px) {
+      .skills-index { display: none; }
+    }
+
+    /* ============================================================
+       SKILLS CONTENT
+       ============================================================ */
+    .skills-content {
+      min-width: 0;  /* prevent grid column blowout */
+      padding-bottom: 8rem;
+    }
+
+    /* ============================================================
+       SKILL SECTIONS
+       ============================================================ */
+    .skill-section {
+      padding: 3.5rem 0 4rem;
+      scroll-margin-top: 5.5rem;
+    }
+
+    /* Divider between sections — not above the first */
+    .skill-section + .skill-section {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .skill-section__title {
+      font-family: var(--font-display);
+      font-size: var(--size-xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-section__intro {
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--color-muted);
+      margin-bottom: 1.5rem;
+      max-width: 52ch;
+    }
+
+    /* ── Skill list ─────────────────────────────────────────────── */
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .skill-list__item {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 400;
+      color: var(--color-text);
+      line-height: 1.5;
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+    }
+
+    .skill-list__item::before {
+      content: '–';
+      color: var(--color-accent);
+      flex-shrink: 0;
+      font-weight: 300;
+    }
+
+    /* ── Sub-groups within a section ───────────────────────────── */
+    .skill-group {
+      margin-top: 1.5rem;
+    }
+
+    .skill-group:first-child {
+      margin-top: 0;
+    }
+
+    .skill-group__label {
+      /* extends .label — no redundant rules needed */
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .skill-section        { padding: 2.5rem 0 3rem; }
+      .skill-section__title { font-size: var(--size-lg); }
+    }
+
+    /* ============================================================
+       FOOTER  (identical to index.html)
+       ============================================================ */
+    .site-footer {
+      padding: 3rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .site-footer__copy {
+      font-family: var(--font-body);
+      font-size: var(--size-xs);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+
+    .site-footer__copy span {
+      color: var(--color-text);
+      font-weight: 400;
+    }
+
+    @media (max-width: 560px) {
+      .site-footer { padding: 2.5rem 6vw; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+       No hero — is-visible and has-bg applied via DOMContentLoaded.
+       ============================================================ -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
+    <ul class="nav__links" role="list">
+      <li><a href="about.html"         class="nav__link">About</a></li>
+      <li><a href="experience.html"    class="nav__link">Experience</a></li>
+      <li><a href="projects.html"      class="nav__link">Projects</a></li>
+      <li><a href="skills.html"        class="nav__link" aria-current="page">Skills</a></li>
+      <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       PAGE HEADER
+       ============================================================ -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="label">Skills</p>
+      <h1 class="page-header__motif">
+        Not a tag cloud. Things I actually know how to use.
+      </h1>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN LAYOUT
+       ============================================================ -->
+  <div class="skills-layout">
+
+    <!-- ── Main content ──────────────────────────────────────────── -->
+    <div class="skills-content">
+
+      <!-- TECHNICAL -->
+      <section id="technical" class="skill-section">
+        <h2 class="skill-section__title">Technical</h2>
+        <p class="skill-section__intro">
+          More languages than I planned to learn. Each one came from a problem that needed solving.
+        </p>
+        <ul class="skill-list" role="list">
+          <li class="skill-list__item">Python</li>
+          <li class="skill-list__item">C++</li>
+          <li class="skill-list__item">MATLAB</li>
+          <li class="skill-list__item">Arduino</li>
+          <li class="skill-list__item">Bash</li>
+          <li class="skill-list__item">LabTalk (OriginLab)</li>
+          <li class="skill-list__item">ImageJ macro</li>
+          <li class="skill-list__item">HTML/CSS</li>
+          <li class="skill-list__item">Markdown</li>
+          <li class="skill-list__item">LaTeX</li>
+        </ul>
+      </section>
+
+      <!-- TOOLS & ENVIRONMENT -->
+      <section id="tools-environment" class="skill-section">
+        <h2 class="skill-section__title">Tools &amp; Environment</h2>
+        <p class="skill-section__intro">
+          I configure my own environment. I don't wait for IT.
+        </p>
+        <ul class="skill-list" role="list">
+          <li class="skill-list__item">Linux</li>
+          <li class="skill-list__item">Windows</li>
+          <li class="skill-list__item">VSCodium</li>
+          <li class="skill-list__item">Git / GitHub</li>
+          <li class="skill-list__item">LM Studio</li>
+          <li class="skill-list__item">Ollama</li>
+          <li class="skill-list__item">Streamlit</li>
+          <li class="skill-list__item">OriginLab</li>
+          <li class="skill-list__item">Autodesk Inventor</li>
+          <li class="skill-list__item">GIMP</li>
+          <li class="skill-list__item">MS Office</li>
+        </ul>
+      </section>
+
+      <!-- LAB & EXPERIMENTAL -->
+      <section id="lab-experimental" class="skill-section">
+        <h2 class="skill-section__title">Lab &amp; Experimental</h2>
+        <p class="skill-section__intro">
+          Seven years of hands-on experimental work across three institutions.
+        </p>
+
+        <div class="skill-group">
+          <p class="label skill-group__label">Electrophysiology</p>
+          <ul class="skill-list" role="list">
+            <li class="skill-list__item">Patch clamp</li>
+            <li class="skill-list__item">Microelectrode arrays (MEA)</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <p class="label skill-group__label">Microscopy</p>
+          <ul class="skill-list" role="list">
+            <li class="skill-list__item">Confocal (spinning disk, laser scanning)</li>
+            <li class="skill-list__item">Fluorescence microscopy</li>
+            <li class="skill-list__item">Calcium imaging</li>
+            <li class="skill-list__item">ROS imaging</li>
+            <li class="skill-list__item">Immunostaining</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <p class="label skill-group__label">Cell Biology</p>
+          <ul class="skill-list" role="list">
+            <li class="skill-list__item">Stem cell differentiation</li>
+            <li class="skill-list__item">Cell culture — hiPSC, hASC, HEK-293T, MDCK</li>
+            <li class="skill-list__item">qPCR</li>
+            <li class="skill-list__item">Proliferation assays</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <p class="label skill-group__label">Fabrication &amp; Characterization</p>
+          <ul class="skill-list" role="list">
+            <li class="skill-list__item">Spin coating</li>
+            <li class="skill-list__item">Drop casting</li>
+            <li class="skill-list__item">Microcontact printing</li>
+            <li class="skill-list__item">UV/Vis spectroscopy</li>
+            <li class="skill-list__item">Fluorimetry</li>
+            <li class="skill-list__item">Surface potential</li>
+            <li class="skill-list__item">SEM</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- DOMAIN -->
+      <section id="domain" class="skill-section">
+        <h2 class="skill-section__title">Domain</h2>
+        <p class="skill-section__intro">
+          Seven years at the intersection of physics, biology, and materials science.
+        </p>
+        <ul class="skill-list" role="list">
+          <li class="skill-list__item">Biomaterials</li>
+          <li class="skill-list__item">Organic semiconductors (P3HT, PEDOT)</li>
+          <li class="skill-list__item">Stem cell biology</li>
+          <li class="skill-list__item">Nanotechnology</li>
+          <li class="skill-list__item">Bioelectronics</li>
+          <li class="skill-list__item">Experimental design</li>
+          <li class="skill-list__item">Technology readiness assessment</li>
+          <li class="skill-list__item">Multi-institute collaboration</li>
+        </ul>
+      </section>
+
+      <!-- AI & DATA -->
+      <section id="ai-data" class="skill-section">
+        <h2 class="skill-section__title">AI &amp; Data</h2>
+        <p class="skill-section__intro">
+          Built three production apps. Still learning. Intentionally.
+        </p>
+        <ul class="skill-list" role="list">
+          <li class="skill-list__item">LLM API integration (Anthropic, Ollama)</li>
+          <li class="skill-list__item">Prompt engineering</li>
+          <li class="skill-list__item">Data analysis &amp; visualization</li>
+          <li class="skill-list__item">Workflow automation</li>
+          <li class="skill-list__item">Deep learning — image segmentation (Cellpose, ImageJ)</li>
+          <li class="skill-list__item">Streamlit</li>
+        </ul>
+      </section>
+
+      <!-- LANGUAGES -->
+      <section id="languages" class="skill-section">
+        <h2 class="skill-section__title">Languages</h2>
+        <p class="skill-section__intro">
+          Italian is home. English is work. Spanish is next.
+        </p>
+        <ul class="skill-list" role="list">
+          <li class="skill-list__item">Italian — native</li>
+          <li class="skill-list__item">English — C1+, working language</li>
+          <li class="skill-list__item">Spanish — intermediate, accelerating</li>
+          <li class="skill-list__item">German — basic</li>
+        </ul>
+      </section>
+
+      <!-- CERTIFICATIONS -->
+      <section id="certifications" class="skill-section">
+        <h2 class="skill-section__title">Certifications</h2>
+        <p class="skill-section__intro">
+          Chosen deliberately, not collected.
+        </p>
+        <ul class="skill-list" role="list">
+          <li class="skill-list__item">Google Project Management — Coursera, 2025</li>
+          <li class="skill-list__item">Lean Six Sigma White Belt — MSI, 2026</li>
+        </ul>
+      </section>
+
+    </div><!-- /.skills-content -->
+
+    <!-- ── Right index (sticky, desktop only) ───────────────────── -->
+    <nav class="skills-index" aria-label="Skills categories">
+      <a href="#technical"        class="skills-index__link" data-target="technical">Technical</a>
+      <a href="#tools-environment" class="skills-index__link" data-target="tools-environment">Tools &amp; Environment</a>
+      <a href="#lab-experimental" class="skills-index__link" data-target="lab-experimental">Lab &amp; Experimental</a>
+      <a href="#domain"           class="skills-index__link" data-target="domain">Domain</a>
+      <a href="#ai-data"          class="skills-index__link" data-target="ai-data">AI &amp; Data</a>
+      <a href="#languages"        class="skills-index__link" data-target="languages">Languages</a>
+      <a href="#certifications"   class="skills-index__link" data-target="certifications">Certifications</a>
+    </nav>
+
+  </div><!-- /.skills-layout -->
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <p class="site-footer__copy">
+      © 2026 <span>Leonardo Maver</span>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       NAV — show immediately on pages without a hero
+       ============================================================ */
+    (function () {
+      const nav = document.querySelector('.nav');
+      if (!nav) return;
+      document.addEventListener('DOMContentLoaded', function () {
+        nav.classList.add('is-visible', 'has-bg');
+      });
+    })();
+
+    /* ============================================================
+       RIGHT INDEX ACTIVE STATE
+       IntersectionObserver: adds .is-active to the index link
+       whose section is intersecting at 30% threshold or more.
+       ============================================================ */
+    (function () {
+      const sections    = document.querySelectorAll('.skill-section');
+      const indexLinks  = document.querySelectorAll('.skills-index__link');
+
+      if (!sections.length || !indexLinks.length) return;
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            indexLinks.forEach(function (link) {
+              link.classList.toggle('is-active', link.dataset.target === id);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach(function (section) {
+        observer.observe(section);
+      });
+    })();
+  </script>
+
+</body>
+</html>
