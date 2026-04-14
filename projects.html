@@ -430,6 +430,11 @@
       align-items: start;
     }
 
+    /* Text column aligns with title (3rem index + 2rem gap = 5rem) */
+    .project-section__text {
+      padding-left: 5rem;
+    }
+
     .project-section__visual {
       position: sticky;
       top: 5.5rem;
@@ -444,6 +449,11 @@
       .project-section__visual {
         position: static;
         margin-top: 2.5rem;
+      }
+
+      /* Text column — drop indent on mobile, grid is single column */
+      .project-section__text {
+        padding-left: 0;
       }
     }
 
