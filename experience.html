@@ -302,35 +302,45 @@
       max-width: 58ch;
     }
 
-    /* ── Bullet list ────────────────────────────────────────────── */
-    .exp-list {
+    /* ── Two-column bullet grid ─────────────────────────────────── */
+    .bullets {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
-      max-width: 64ch;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
 
-    .exp-list__item {
+    .bullet {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1.5rem;
+      align-items: baseline;
+    }
+
+    .bullet__strong {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 500;
+      color: var(--color-text);
+      text-align: right;
+    }
+
+    .bullet__detail {
       font-family: var(--font-body);
       font-size: var(--size-base);
       font-weight: 300;
+      line-height: 1.6;
       color: var(--color-muted);
-      line-height: 1.75;
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
     }
 
-    .exp-list__item::before {
-      content: '–';
-      color: var(--color-accent);
-      flex-shrink: 0;
-      font-weight: 300;
-    }
-
-    .exp-list__item strong {
-      font-weight: 400;
-      color: var(--color-text);
+    @media (max-width: 900px) {
+      .bullet {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+      }
+      .bullet__strong {
+        text-align: left;
+      }
     }
 
     /* ── Sub-section (Leadership etc.) ─────────────────────────── */
@@ -603,31 +613,28 @@
         <p class="exp-section__thesis">
           Thesis: From thermal to mechanical: shedding light on novel ways to control cell fate.
         </p>
-        <ul class="exp-list" role="list">
-          <li class="exp-list__item">
-            <strong>Designed and built experimental platforms</strong> integrating biomaterials,
-            organic semiconductors, and cell biology — working across physics, engineering,
-            and biology from day one.
-          </li>
-          <li class="exp-list__item">
-            <strong>Developed automated microscopy analysis pipeline</strong> with deep
-            learning-based instance segmentation (Cellpose), reducing processing time by 80%
-            and becoming the go-to reference for image analysis within the group.
-          </li>
-          <li class="exp-list__item">
-            <strong>Built custom Arduino-based stimulation platforms</strong> enabling automated
-            overnight experiments, increasing throughput and reducing manual intervention.
-          </li>
-          <li class="exp-list__item">
-            <strong>Acted as technical bridge</strong> across interdisciplinary collaborations
-            with national and international partners — translating between nanomaterials
-            engineering and cell biology to align experimental objectives.
-          </li>
-          <li class="exp-list__item">
-            <strong>Introduced reproducible computational workflows</strong> adopted across
-            multiple projects.
-          </li>
-        </ul>
+        <div class="bullets">
+          <div class="bullet">
+            <span class="bullet__strong">Designed and built</span>
+            <span class="bullet__detail">experimental platforms integrating biomaterials, organic semiconductors, and cell biology across physics, engineering, and biology.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Automated</span>
+            <span class="bullet__detail">microscopy analysis pipeline with deep learning-based instance segmentation (Cellpose); processing time reduced by 80%, became group reference.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Built</span>
+            <span class="bullet__detail">custom Arduino-based stimulation platforms enabling automated overnight experiments and increased throughput.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Bridged</span>
+            <span class="bullet__detail">national and international interdisciplinary collaborations, translating between nanomaterials engineering and cell biology to align experimental objectives.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Introduced</span>
+            <span class="bullet__detail">reproducible computational workflows adopted across multiple projects within the group.</span>
+          </div>
+        </div>
       </section>
 
       <!-- IIT Postdoc -->
@@ -635,21 +642,20 @@
         <p class="exp-section__period">Nov 2022 – Oct 2023</p>
         <h2 class="exp-section__title">Postdoctoral Researcher</h2>
         <p class="exp-section__institution">CNST@IIT, Milan</p>
-        <ul class="exp-list" role="list">
-          <li class="exp-list__item">
-            <strong>Scaled automated microscopy analysis pipeline</strong> to full production
-            use — reduced average analysis time from 2–3 days to 4 hours through full-cell
-            segmentation.
-          </li>
-          <li class="exp-list__item">
-            <strong>Coordinated experimental activities and timelines</strong> across multiple
-            parallel projects, aligning priorities with senior researchers.
-          </li>
-          <li class="exp-list__item">
-            <strong>Maintained and extended computational workflows,</strong> improving
-            measurement precision and reproducibility across the group.
-          </li>
-        </ul>
+        <div class="bullets">
+          <div class="bullet">
+            <span class="bullet__strong">Scaled</span>
+            <span class="bullet__detail">automated microscopy pipeline to full production; processing time from 2–3 days to 4 hours through full-cell segmentation.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Coordinated</span>
+            <span class="bullet__detail">experimental activities and timelines across multiple parallel projects, aligning priorities with senior researchers.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Extended</span>
+            <span class="bullet__detail">computational workflows, improving measurement precision and reproducibility across the group.</span>
+          </div>
+        </div>
       </section>
 
       <!-- UCI Postdoc -->
@@ -657,41 +663,38 @@
         <p class="exp-section__period">Apr 2024 – Aug 2025</p>
         <h2 class="exp-section__title">Postdoctoral Researcher</h2>
         <p class="exp-section__institution">University of California, Irvine</p>
-        <ul class="exp-list" role="list">
-          <li class="exp-list__item">
-            <strong>Designed and validated experimental platform</strong> integrating
-            biomaterials and microfabrication for iPSC-derived cardiomyocyte maturation —
-            zero contamination across 1.5 years of continuous operation.
-          </li>
-          <li class="exp-list__item">
-            <strong>Identified and resolved critical failure point</strong> in substrate
-            preparation, reducing failure rate from 50% to under 5%.
-          </li>
-          <li class="exp-list__item">
-            <strong>Introduced microelectrode array (MEA) electrophysiology</strong> as a new
-            lab capability — learned the technique from scratch, established analysis protocols
-            adopted by the group.
-          </li>
-          <li class="exp-list__item">
-            <strong>Evaluated multiple experimental conditions</strong> through comparative
-            data analysis, delivering recommendations that informed project go/no-go decisions
-            presented to senior stakeholders.
-          </li>
-          <li class="exp-list__item">
-            <strong>Trained 3 researchers</strong> on electrophysiology protocols.
-          </li>
-        </ul>
+        <div class="bullets">
+          <div class="bullet">
+            <span class="bullet__strong">Designed and validated</span>
+            <span class="bullet__detail">experimental platform for iPSC-derived cardiomyocyte maturation; zero contamination across 1.5 years of continuous operation.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Resolved</span>
+            <span class="bullet__detail">critical failure point in substrate preparation; failure rate from 50% to under 5%.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Introduced</span>
+            <span class="bullet__detail">MEA electrophysiology as new lab capability; learned from scratch, established protocols adopted by the group.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Delivered</span>
+            <span class="bullet__detail">comparative analysis of experimental conditions as go/no-go recommendations to senior stakeholders.</span>
+          </div>
+          <div class="bullet">
+            <span class="bullet__strong">Trained</span>
+            <span class="bullet__detail">3 researchers on electrophysiology protocols.</span>
+          </div>
+        </div>
 
         <!-- Leadership & Community sub-block -->
         <div class="exp-subsection">
           <p class="label exp-subsection__label">Leadership &amp; Community</p>
-          <ul class="exp-list" role="list">
-            <li class="exp-list__item">
-              <strong>UCI Postdoctoral Association — Board Member,</strong> Jun 2024 – Aug 2025.
-              Co-organized 20+ events and a 74-attendee cross-department symposium connecting
-              researchers with academic and industry speakers.
-            </li>
-          </ul>
+          <div class="bullets">
+            <div class="bullet">
+              <span class="bullet__strong">Co-organized</span>
+              <span class="bullet__detail">20+ events and a 74-attendee cross-department symposium connecting researchers with academic and industry speakers.</span>
+            </div>
+          </div>
         </div>
       </section>
 

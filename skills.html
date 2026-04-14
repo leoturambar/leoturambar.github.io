@@ -324,46 +324,42 @@
       max-width: 52ch;
     }
 
-    /* ── Skill list ─────────────────────────────────────────────── */
-    .skill-list {
+    /* ── Skill grid ─────────────────────────────────────────────── */
+    .skill-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem 2rem;
+      margin-top: 1rem;
+    }
+
+    .skill-item {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 300;
+      color: var(--color-text);
       display: flex;
-      flex-direction: column;
+      align-items: baseline;
       gap: 0.5rem;
     }
 
-    .skill-list__item {
-      font-family: var(--font-body);
-      font-size: var(--size-base);
-      font-weight: 400;
-      color: var(--color-text);
-      line-height: 1.5;
-      display: flex;
-      align-items: baseline;
-      gap: 0.65rem;
-    }
-
-    .skill-list__item::before {
+    .skill-item::before {
       content: '–';
       color: var(--color-accent);
+      font-weight: 400;
       flex-shrink: 0;
-      font-weight: 300;
     }
 
-    /* ── Sub-groups within a section ───────────────────────────── */
-    .skill-group {
-      margin-top: 1.5rem;
-    }
-
-    .skill-group:first-child {
-      margin-top: 0;
-    }
-
+    /* Sub-group label (Lab & Experimental clusters) */
     .skill-group__label {
-      /* extends .label — no redundant rules needed */
-      margin-bottom: 0.6rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
     }
 
     /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .skill-group { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 560px) {
       .skill-section        { padding: 2.5rem 0 3rem; }
       .skill-section__title { font-size: var(--size-lg); }
@@ -443,18 +439,18 @@
         <p class="skill-section__intro">
           More languages than I planned to learn. Each one came from a problem that needed solving.
         </p>
-        <ul class="skill-list" role="list">
-          <li class="skill-list__item">Python</li>
-          <li class="skill-list__item">C++</li>
-          <li class="skill-list__item">MATLAB</li>
-          <li class="skill-list__item">Arduino</li>
-          <li class="skill-list__item">Bash</li>
-          <li class="skill-list__item">LabTalk (OriginLab)</li>
-          <li class="skill-list__item">ImageJ macro</li>
-          <li class="skill-list__item">HTML/CSS</li>
-          <li class="skill-list__item">Markdown</li>
-          <li class="skill-list__item">LaTeX</li>
-        </ul>
+        <div class="skill-group">
+          <div class="skill-item">Python</div>
+          <div class="skill-item">C++</div>
+          <div class="skill-item">MATLAB</div>
+          <div class="skill-item">Arduino</div>
+          <div class="skill-item">Bash</div>
+          <div class="skill-item">LabTalk (OriginLab)</div>
+          <div class="skill-item">ImageJ macro</div>
+          <div class="skill-item">HTML/CSS</div>
+          <div class="skill-item">Markdown</div>
+          <div class="skill-item">LaTeX</div>
+        </div>
       </section>
 
       <!-- TOOLS & ENVIRONMENT -->
@@ -463,19 +459,19 @@
         <p class="skill-section__intro">
           I configure my own environment. I don't wait for IT.
         </p>
-        <ul class="skill-list" role="list">
-          <li class="skill-list__item">Linux</li>
-          <li class="skill-list__item">Windows</li>
-          <li class="skill-list__item">VSCodium</li>
-          <li class="skill-list__item">Git / GitHub</li>
-          <li class="skill-list__item">LM Studio</li>
-          <li class="skill-list__item">Ollama</li>
-          <li class="skill-list__item">Streamlit</li>
-          <li class="skill-list__item">OriginLab</li>
-          <li class="skill-list__item">Autodesk Inventor</li>
-          <li class="skill-list__item">GIMP</li>
-          <li class="skill-list__item">MS Office</li>
-        </ul>
+        <div class="skill-group">
+          <div class="skill-item">Linux</div>
+          <div class="skill-item">Windows</div>
+          <div class="skill-item">VSCodium</div>
+          <div class="skill-item">Git / GitHub</div>
+          <div class="skill-item">LM Studio</div>
+          <div class="skill-item">Ollama</div>
+          <div class="skill-item">Streamlit</div>
+          <div class="skill-item">OriginLab</div>
+          <div class="skill-item">Autodesk Inventor</div>
+          <div class="skill-item">GIMP</div>
+          <div class="skill-item">MS Office</div>
+        </div>
       </section>
 
       <!-- LAB & EXPERIMENTAL -->
@@ -485,46 +481,38 @@
           Seven years of hands-on experimental work across three institutions.
         </p>
 
+        <p class="label skill-group__label">Electrophysiology</p>
         <div class="skill-group">
-          <p class="label skill-group__label">Electrophysiology</p>
-          <ul class="skill-list" role="list">
-            <li class="skill-list__item">Patch clamp</li>
-            <li class="skill-list__item">Microelectrode arrays (MEA)</li>
-          </ul>
+          <div class="skill-item">Patch clamp</div>
+          <div class="skill-item">Microelectrode arrays (MEA)</div>
         </div>
 
+        <p class="label skill-group__label">Microscopy</p>
         <div class="skill-group">
-          <p class="label skill-group__label">Microscopy</p>
-          <ul class="skill-list" role="list">
-            <li class="skill-list__item">Confocal (spinning disk, laser scanning)</li>
-            <li class="skill-list__item">Fluorescence microscopy</li>
-            <li class="skill-list__item">Calcium imaging</li>
-            <li class="skill-list__item">ROS imaging</li>
-            <li class="skill-list__item">Immunostaining</li>
-          </ul>
+          <div class="skill-item">Confocal (spinning disk, laser scanning)</div>
+          <div class="skill-item">Fluorescence microscopy</div>
+          <div class="skill-item">Calcium imaging</div>
+          <div class="skill-item">ROS imaging</div>
+          <div class="skill-item">Immunostaining</div>
         </div>
 
+        <p class="label skill-group__label">Cell Biology</p>
         <div class="skill-group">
-          <p class="label skill-group__label">Cell Biology</p>
-          <ul class="skill-list" role="list">
-            <li class="skill-list__item">Stem cell differentiation</li>
-            <li class="skill-list__item">Cell culture — hiPSC, hASC, HEK-293T, MDCK</li>
-            <li class="skill-list__item">qPCR</li>
-            <li class="skill-list__item">Proliferation assays</li>
-          </ul>
+          <div class="skill-item">Stem cell differentiation</div>
+          <div class="skill-item">Cell culture — hiPSC, hASC, HEK-293T, MDCK</div>
+          <div class="skill-item">qPCR</div>
+          <div class="skill-item">Proliferation assays</div>
         </div>
 
+        <p class="label skill-group__label">Fabrication &amp; Characterization</p>
         <div class="skill-group">
-          <p class="label skill-group__label">Fabrication &amp; Characterization</p>
-          <ul class="skill-list" role="list">
-            <li class="skill-list__item">Spin coating</li>
-            <li class="skill-list__item">Drop casting</li>
-            <li class="skill-list__item">Microcontact printing</li>
-            <li class="skill-list__item">UV/Vis spectroscopy</li>
-            <li class="skill-list__item">Fluorimetry</li>
-            <li class="skill-list__item">Surface potential</li>
-            <li class="skill-list__item">SEM</li>
-          </ul>
+          <div class="skill-item">Spin coating</div>
+          <div class="skill-item">Drop casting</div>
+          <div class="skill-item">Microcontact printing</div>
+          <div class="skill-item">UV/Vis spectroscopy</div>
+          <div class="skill-item">Fluorimetry</div>
+          <div class="skill-item">Surface potential</div>
+          <div class="skill-item">SEM</div>
         </div>
       </section>
 
@@ -534,16 +522,16 @@
         <p class="skill-section__intro">
           Seven years at the intersection of physics, biology, and materials science.
         </p>
-        <ul class="skill-list" role="list">
-          <li class="skill-list__item">Biomaterials</li>
-          <li class="skill-list__item">Organic semiconductors (P3HT, PEDOT)</li>
-          <li class="skill-list__item">Stem cell biology</li>
-          <li class="skill-list__item">Nanotechnology</li>
-          <li class="skill-list__item">Bioelectronics</li>
-          <li class="skill-list__item">Experimental design</li>
-          <li class="skill-list__item">Technology readiness assessment</li>
-          <li class="skill-list__item">Multi-institute collaboration</li>
-        </ul>
+        <div class="skill-group">
+          <div class="skill-item">Biomaterials</div>
+          <div class="skill-item">Organic semiconductors (P3HT, PEDOT)</div>
+          <div class="skill-item">Stem cell biology</div>
+          <div class="skill-item">Nanotechnology</div>
+          <div class="skill-item">Bioelectronics</div>
+          <div class="skill-item">Experimental design</div>
+          <div class="skill-item">Technology readiness assessment</div>
+          <div class="skill-item">Multi-institute collaboration</div>
+        </div>
       </section>
 
       <!-- AI & DATA -->
@@ -552,14 +540,14 @@
         <p class="skill-section__intro">
           Built three production apps. Still learning. Intentionally.
         </p>
-        <ul class="skill-list" role="list">
-          <li class="skill-list__item">LLM API integration (Anthropic, Ollama)</li>
-          <li class="skill-list__item">Prompt engineering</li>
-          <li class="skill-list__item">Data analysis &amp; visualization</li>
-          <li class="skill-list__item">Workflow automation</li>
-          <li class="skill-list__item">Deep learning — image segmentation (Cellpose, ImageJ)</li>
-          <li class="skill-list__item">Streamlit</li>
-        </ul>
+        <div class="skill-group">
+          <div class="skill-item">LLM API integration (Anthropic, Ollama)</div>
+          <div class="skill-item">Prompt engineering</div>
+          <div class="skill-item">Data analysis &amp; visualization</div>
+          <div class="skill-item">Workflow automation</div>
+          <div class="skill-item">Deep learning — image segmentation (Cellpose, ImageJ)</div>
+          <div class="skill-item">Streamlit</div>
+        </div>
       </section>
 
       <!-- LANGUAGES -->
@@ -568,12 +556,12 @@
         <p class="skill-section__intro">
           Italian is home. English is work. Spanish is next.
         </p>
-        <ul class="skill-list" role="list">
-          <li class="skill-list__item">Italian — native</li>
-          <li class="skill-list__item">English — C1+, working language</li>
-          <li class="skill-list__item">Spanish — intermediate, accelerating</li>
-          <li class="skill-list__item">German — basic</li>
-        </ul>
+        <div class="skill-group">
+          <div class="skill-item">Italian — native</div>
+          <div class="skill-item">English — C1+, working language</div>
+          <div class="skill-item">Spanish — intermediate, accelerating</div>
+          <div class="skill-item">German — basic</div>
+        </div>
       </section>
 
       <!-- CERTIFICATIONS -->
@@ -582,9 +570,9 @@
         <p class="skill-section__intro">
           Chosen deliberately, not collected.
         </p>
-        <ul class="skill-list" role="list">
-          <li class="skill-list__item">Google Project Management — Coursera, 2025</li>
-          <li class="skill-list__item">Lean Six Sigma White Belt — MSI, 2026</li>
+        <div class="skill-group">
+          <div class="skill-item">Google Project Management — Coursera, 2025</div>
+          <div class="skill-item">Lean Six Sigma White Belt — MSI, 2026</div>
         </ul>
       </section>
 
