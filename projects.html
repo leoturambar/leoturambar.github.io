@@ -343,10 +343,10 @@
       color: var(--color-text);
     }
 
-    /* Body: padding-left aligns with title
-       (3rem index column + 2rem gap = 5rem) */
+    /* Body: no indent — the inner grid uses the full column width.
+       Header alignment is handled by .project-section__header independently. */
     .project-section__body {
-      padding-left: 5rem;
+      /* padding-left removed: was squeezing the text+image grid */
     }
 
     .project-section__pitch {
@@ -379,10 +379,9 @@
       margin-bottom: 2.5rem;
     }
 
-    /* Screenshot placeholder */
+    /* Screenshot placeholder — fills its grid column */
     .project-section__placeholder {
       width: 100%;
-      max-width: 700px;
       aspect-ratio: 16 / 9;
       border: 1px dashed var(--color-border);
       display: flex;
@@ -439,9 +438,6 @@
 
     /* ── Project sections responsive ───────────────────────────── */
     @media (max-width: 900px) {
-      /* Drop body indent — full width on tablet/mobile */
-      .project-section__body { padding-left: 0; }
-
       .project-section__grid {
         display: block;
       }
