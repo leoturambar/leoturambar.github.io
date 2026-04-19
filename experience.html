@@ -187,9 +187,9 @@
     .nav__link[aria-current="page"]::after { width: 100%; }
 
     @media (max-width: 560px) {
-      .nav           { padding: 1.25rem 6vw; }
-      .nav__links    { gap: 1.5rem; }
-      .nav__wordmark { display: none; }
+      .nav                  { padding: 1.25rem 6vw; }
+      .nav__links           { gap: 1.5rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+      .nav__wordmark        { font-size: var(--size-xs); }
     }
 
     /* ============================================================
@@ -797,29 +797,49 @@
 
     /* ============================================================
        TIMELINE ACTIVE STATE
-       IntersectionObserver: highlights the timeline node whose
-       section is intersecting at ≥30% threshold.
+       Scroll-direction-aware IntersectionObserver.
+       rootMargin ensures only the topmost visible section fires.
+       Scrolling to top always activates the first item.
        ============================================================ */
     (function () {
-      const sections       = document.querySelectorAll('.exp-section');
-      const timelineNodes  = document.querySelectorAll('.timeline__node');
+      var sections      = document.querySelectorAll('.exp-section');
+      var timelineNodes = document.querySelectorAll('.timeline__node');
 
       if (!sections.length || !timelineNodes.length) return;
 
-      const observer = new IntersectionObserver(function (entries) {
+      var lastScrollY = window.scrollY;
+
+      function activate(id) {
+        timelineNodes.forEach(function (node) {
+          node.classList.toggle('is-active', node.dataset.target === id);
+        });
+      }
+
+      // Force first item active when near top of page
+      window.addEventListener('scroll', function () {
+        if (window.scrollY < 100) {
+          activate(sections[0].id);
+        }
+        lastScrollY = window.scrollY;
+      }, { passive: true });
+
+      var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            const id = entry.target.id;
-            timelineNodes.forEach(function (node) {
-              node.classList.toggle('is-active', node.dataset.target === id);
-            });
+            activate(entry.target.id);
           }
         });
-      }, { threshold: 0.3 });
+      }, {
+        threshold: 0.3,
+        rootMargin: '-10% 0px -80% 0px'
+      });
 
       sections.forEach(function (section) {
         observer.observe(section);
       });
+
+      // Activate first item on load
+      activate(sections[0].id);
     })();
   </script>
 
