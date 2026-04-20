@@ -407,7 +407,7 @@
        NAV
        No hero — is-visible and has-bg applied via DOMContentLoaded.
        ============================================================ -->
-  <nav class="nav" aria-label="Main navigation">
+  <nav class="nav is-visible has-bg" aria-label="Main navigation">
     <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
     <ul class="nav__links" role="list">
       <li><a href="about.html"         class="nav__link">About</a></li>
@@ -623,50 +623,40 @@
     })();
 
     /* ============================================================
-       RIGHT INDEX ACTIVE STATE
-       Scroll-direction-aware IntersectionObserver.
-       rootMargin ensures only the topmost visible section fires.
-       Scrolling to top always activates the first item.
+       RIGHT INDEX ACTIVE STATE — scroll-based
+       Finds the last section whose top is above 120px from viewport
+       top. Defaults to first section (handles page load + near-top).
        ============================================================ */
     (function () {
       var sections   = document.querySelectorAll('.skill-section');
       var indexLinks = document.querySelectorAll('.skills-index__link');
 
-      if (\!sections.length || \!indexLinks.length) return;
+      if (!sections.length || !indexLinks.length) return;
 
-      var lastScrollY = window.scrollY;
+      function getActiveSection() {
+        var active = sections[0];
+        sections.forEach(function (section) {
+          if (section.getBoundingClientRect().top - 120 <= 0) {
+            active = section;
+          }
+        });
+        return active;
+      }
 
-      function activate(id) {
+      function updateActive() {
+        var activeId = getActiveSection().id;
         indexLinks.forEach(function (link) {
-          link.classList.toggle('is-active', link.dataset.target === id);
+          var target = link.getAttribute('href');
+          if (target === '#' + activeId) {
+            link.classList.add('is-active');
+          } else {
+            link.classList.remove('is-active');
+          }
         });
       }
 
-      // Force first item active when near top of page
-      window.addEventListener('scroll', function () {
-        if (window.scrollY < 100) {
-          activate(sections[0].id);
-        }
-        lastScrollY = window.scrollY;
-      }, { passive: true });
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            activate(entry.target.id);
-          }
-        });
-      }, {
-        threshold: 0.3,
-        rootMargin: '-10% 0px -80% 0px'
-      });
-
-      sections.forEach(function (section) {
-        observer.observe(section);
-      });
-
-      // Activate first item on load
-      activate(sections[0].id);
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
     })();
   </script>
 

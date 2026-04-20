@@ -783,63 +783,56 @@
   <!-- ============================================================
        SCRIPTS
        ============================================================ -->
+  <\!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
   <script>
     /* ============================================================
        NAV — show immediately (no hero on this page)
        ============================================================ */
     (function () {
       const nav = document.querySelector('.nav');
-      if (!nav) return;
+      if (\!nav) return;
       document.addEventListener('DOMContentLoaded', function () {
         nav.classList.add('is-visible', 'has-bg');
       });
     })();
 
     /* ============================================================
-       TIMELINE ACTIVE STATE
-       Scroll-direction-aware IntersectionObserver.
-       rootMargin ensures only the topmost visible section fires.
-       Scrolling to top always activates the first item.
+       TIMELINE ACTIVE STATE — scroll-based
+       Finds the last section whose top is above 120px from viewport
+       top. Defaults to first section (handles page load + near-top).
        ============================================================ */
     (function () {
       var sections      = document.querySelectorAll('.exp-section');
       var timelineNodes = document.querySelectorAll('.timeline__node');
 
-      if (!sections.length || !timelineNodes.length) return;
+      if (\!sections.length || \!timelineNodes.length) return;
 
-      var lastScrollY = window.scrollY;
+      function getActiveSection() {
+        var active = sections[0];
+        sections.forEach(function (section) {
+          if (section.getBoundingClientRect().top - 120 <= 0) {
+            active = section;
+          }
+        });
+        return active;
+      }
 
-      function activate(id) {
+      function updateActive() {
+        var activeId = getActiveSection().id;
         timelineNodes.forEach(function (node) {
-          node.classList.toggle('is-active', node.dataset.target === id);
+          var target = node.getAttribute('href');
+          if (target === '#' + activeId) {
+            node.classList.add('is-active');
+          } else {
+            node.classList.remove('is-active');
+          }
         });
       }
 
-      // Force first item active when near top of page
-      window.addEventListener('scroll', function () {
-        if (window.scrollY < 100) {
-          activate(sections[0].id);
-        }
-        lastScrollY = window.scrollY;
-      }, { passive: true });
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            activate(entry.target.id);
-          }
-        });
-      }, {
-        threshold: 0.3,
-        rootMargin: '-10% 0px -80% 0px'
-      });
-
-      sections.forEach(function (section) {
-        observer.observe(section);
-      });
-
-      // Activate first item on load
-      activate(sections[0].id);
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
     })();
   </script>
 
