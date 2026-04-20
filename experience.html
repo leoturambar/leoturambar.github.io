@@ -559,7 +559,7 @@
   <!-- ============================================================
        NAV
        ============================================================ -->
-  <nav class="nav" aria-label="Main navigation">
+  <nav class="nav is-visible has-bg" aria-label="Main navigation">
     <a href="index.html" class="nav__wordmark">Leonardo Maver</a>
     <ul class="nav__links" role="list">
       <li><a href="about.html"         class="nav__link">About</a></li>
@@ -783,7 +783,7 @@
   <!-- ============================================================
        SCRIPTS
        ============================================================ -->
-  <\!-- ============================================================
+  <!-- ============================================================
        SCRIPTS
        ============================================================ -->
   <script>
@@ -792,7 +792,7 @@
        ============================================================ */
     (function () {
       const nav = document.querySelector('.nav');
-      if (\!nav) return;
+      if (!nav) return;
       document.addEventListener('DOMContentLoaded', function () {
         nav.classList.add('is-visible', 'has-bg');
       });
@@ -807,7 +807,7 @@
       var sections      = document.querySelectorAll('.exp-section');
       var timelineNodes = document.querySelectorAll('.timeline__node');
 
-      if (\!sections.length || \!timelineNodes.length) return;
+      if (!sections.length || !timelineNodes.length) return;
 
       function getActiveSection() {
         var active = sections[0];
