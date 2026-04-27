@@ -553,6 +553,12 @@
         <span class="sidebar__index">03</span>
         <span class="sidebar__title">Gym Tracker</span>
       </a>
+      <a href="#knowledge-map"
+         class="sidebar__link"
+         data-target="knowledge-map">
+        <span class="sidebar__index">04</span>
+        <span class="sidebar__title">Knowledge Map</span>
+      </a>
     </aside>
 
     <!-- Project sections -->
@@ -714,6 +720,59 @@
             <div class="project-section__visual">
               <div class="project-section__placeholder" aria-hidden="true">
                 <span>[assets/gym-tracker.gif]</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · Knowledge Map ────────────────────────────────── -->
+      <section id="knowledge-map" class="project-section">
+
+        <div class="project-section__header">
+          <span class="project-section__index">04</span>
+          <h2 class="project-section__title">Knowledge Map</h2>
+        </div>
+
+        <div class="project-section__body">
+          <div class="project-section__grid">
+
+            <div class="project-section__text">
+              <p class="project-section__pitch">
+                A graph-based second brain for sustained intellectual exploration —
+                maps ideas and connections across reading sessions, built around a
+                persistent knowledge graph that grows more useful over time.
+              </p>
+
+              <p class="project-section__extended">
+                I was reading Judt, Fisher, Han — dense, interlocking arguments —
+                and linear notes weren't working. Ideas connect in all directions,
+                not in sequence. So I built a tool that treats knowledge as a graph.
+                Each exploration session with Claude generates a structured JSON
+                export that feeds into the graph. Nodes are concepts, edges are
+                connections, and the global view lets you filter branches and focus
+                on individual nodes with their neighbors. The graph becomes more
+                useful the more you use it. Built for a specific deep dive, designed
+                to generalize to any domain of sustained intellectual inquiry.
+              </p>
+
+              <p class="project-section__stack">
+                Python · Streamlit · Claude API · NetworkX · Plotly
+              </p>
+
+              <a href="https://github.com/leoturambar/Knowledge-Map"
+                 class="project-section__github"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Knowledge Map on GitHub">
+                GitHub
+              </a>
+            </div>
+
+            <div class="project-section__visual">
+              <div class="project-section__placeholder" aria-hidden="true">
+                <span>[assets/knowledge-map.gif]</span>
               </div>
             </div>
 
