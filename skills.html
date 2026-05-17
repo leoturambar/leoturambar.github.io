@@ -616,9 +616,36 @@
        ============================================================ */
     (function () {
       const nav = document.querySelector('.nav');
-      if (\!nav) return;
+      if (!nav) return;
       document.addEventListener('DOMContentLoaded', function () {
         nav.classList.add('is-visible', 'has-bg');
+      });
+    })();
+
+    /* ============================================================
+       SKILL ITEM AUTO-SPAN
+       Items whose text wraps to a second line claim a second column
+       so they don't break the grid rhythm.
+       ============================================================ */
+    (function () {
+      function adjustSkillItems() {
+        document.querySelectorAll('.skill-group').forEach(function (group) {
+          var items = group.querySelectorAll('.skill-item');
+          items.forEach(function (item) { item.style.gridColumn = ''; });
+          items.forEach(function (item) {
+            var lh = parseFloat(getComputedStyle(item).lineHeight) || 24;
+            if (item.offsetHeight > lh * 1.2) {
+              item.style.gridColumn = 'span 2';
+            }
+          });
+        });
+      }
+
+      var resizeTimer;
+      window.addEventListener('load', adjustSkillItems);
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(adjustSkillItems, 100);
       });
     })();
 
