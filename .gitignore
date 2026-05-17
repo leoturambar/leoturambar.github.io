@@ -5,5 +5,7 @@ Thumbs.db
 *.swp
 *.bak
 .env
+context.md
 /node_modules/
 /.vscode/
+/input
