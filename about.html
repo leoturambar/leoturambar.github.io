@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About Leonardo Maver — physicist, researcher, and builder transitioning to life sciences strategy consulting." />
+  <meta name="description" content="About Leonardo Maver — physicist and researcher, now an Application Specialist — Life Sciences Microscopy at Zeiss." />
   <meta property="og:title" content="About — Leonardo Maver" />
-  <meta property="og:description" content="Seven years making cells do things they weren't supposed to. Now transitioning to strategy and consulting in life sciences and deep tech." />
+  <meta property="og:description" content="Seven years making cells do things they weren't supposed to. The science was real. Now in industry, at Zeiss, in life sciences microscopy." />
   <meta property="og:image" content="https://leoturambar.github.io/assets/og-image.jpg" />
   <meta property="og:url" content="https://leoturambar.github.io/about.html" />
   <meta property="og:type" content="website" />
@@ -273,10 +273,30 @@
       font-weight: 400;
     }
 
+    /* Personal-section divider — display italic line that marks the
+       shift from the professional arc to the personal. */
+    .about-section .about-divider {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--size-xl);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: 2.25rem;
+    }
+
+    /* Accent top-border sets the personal section apart from the
+       muted dividers above it. */
+    .about-section--personal {
+      border-top-color: var(--color-accent);
+    }
+
     /* ── About sections responsive ──────────────────────────────── */
     @media (max-width: 900px) {
-      .about-section     { padding: 3.5rem 0; }
-      .about-section p   { font-size: var(--size-base); }
+      .about-section            { padding: 3.5rem 0; }
+      .about-section p          { font-size: var(--size-base); }
+      .about-section .about-divider { font-size: var(--size-lg); }
     }
 
     @media (max-width: 560px) {
@@ -371,8 +391,8 @@
       <p class="label">About</p>
       <h1 class="page-header__motif">
         Seven years making cells do things they weren't supposed to.
-        The science was real. I'm ready for problems that move faster,
-        and pay better.
+        The science was real. Now I've taken it into industry, where the
+        problems move faster and the work pays for a life.
       </h1>
     </div>
   </header>
@@ -391,8 +411,8 @@
         I became good at that translation. And at something harder to name:
         the kind of problem-solving that looks like luck from the outside.
         Machines that wouldn't work for anyone else would work for me.
-        Not magic — just <strong>patience, systematic thinking, and a refusal
-        to accept that something broken couldn't be understood</strong>.
+        None of it was magic. <strong>Patience, and a refusal to accept
+        that something broken couldn't be understood</strong>.
       </p>
       <p>
         The work I'm most proud of isn't in any paper. It's a microscopy
@@ -401,7 +421,7 @@
         patch-clamp setup assembled from parts and stubbornness. Arduino code
         that ran overnight experiments so I didn't have to. Things that
         <strong>made the lab function better and made other people's work
-        easier</strong>. I cared about that — probably more than I needed to.
+        easier</strong>. I cared about that, probably more than I needed to.
       </p>
     </section>
 
@@ -409,62 +429,86 @@
     <section class="about-section" aria-label="The drift">
       <p>
         I was still uncertain when I moved to California. The uncertainty
-        resolved itself quickly. Working every weekend will do that. So will
-        the slow realization that <strong>the system isn't broken — it's
-        working exactly as designed, and it wasn't designed for people
-        like me</strong>.
+        didn't last long. The hours saw to that, and so did a slower
+        realization: <strong>the system works exactly as it's meant to.
+        It just wasn't built for what I wanted from it</strong>.
       </p>
       <p>
         What the US gave me, unexpectedly, was scale. A different kind of
         distance from everything familiar forces a certain clarity. I understood
         what I was good at, what I wanted, and what I was no longer willing to
-        trade away. <strong>At 34, not being able to afford a used car is not
-        a temporary condition to endure — it's information.</strong>
+        trade away. <strong>At 34, still not being able to afford a used car
+        is just information.</strong>
       </p>
     </section>
 
     <!-- ── The builder ──────────────────────────────────────────── -->
     <section class="about-section" aria-label="The builder">
       <p>
-        The transition has been active, not passive. Mornings: job applications
-        and case study practice. Afternoons: building. Three Python apps shipped
-        solo, all integrating LLMs into real workflows —
-        <strong>not to prove I can code, but because I find the problems
-        genuinely interesting</strong> and because the fastest way to understand
-        a technology is to use it for something you actually care about.
+        The months between have been busy. Mornings: job applications and
+        case studies. Afternoons: building. Python apps shipped solo, all
+        integrating LLMs into real workflows. Not a portfolio flex.
+        <strong>The problems are genuinely interesting</strong>, and the
+        fastest way to understand a technology is to use it for something
+        you actually care about.
       </p>
       <p>
-        The competitive intelligence tool maps technical landscapes in five
+        The competitive intelligence tool maps a technical field in five
         minutes. The fragrance recommender applies NLP to olfactory note
         pyramids. The gym tracker normalizes training load by bodyweight so
-        the numbers mean something over time.
-        <strong>All three started from curiosity. All three are on GitHub.</strong>
+        the numbers mean something over time. The knowledge map turns what
+        I read into a graph I can explore.
+        <strong>Each one started from curiosity. They're all on GitHub.</strong>
+      </p>
+    </section>
+
+    <!-- ── Into industry ────────────────────────────────────────── -->
+    <section class="about-section" aria-label="Into industry">
+      <p>
+        <strong>The transition has a name now:</strong> Application Specialist
+        — Life Sciences Microscopy, at Zeiss. The commercial side of the
+        instruments I spent years pushing past their limits. The job keeps me
+        in labs, talking with scientists and clinicians, learning something
+        new every time. It's also where I sharpen what I'm actually after:
+        how to size up a technology fast, and how to solve problems that
+        don't come with a manual. <strong>New territory, and I'm the one
+        walking in.</strong>
       </p>
     </section>
 
     <!-- ── The rest of it ───────────────────────────────────────── -->
-    <section class="about-section" aria-label="The rest of it">
+    <section class="about-section about-section--personal" aria-label="The rest of it">
+
+      <p class="about-divider">Enough about the work.</p>
+
       <p>
-        I visited most of the major art museums in Europe before I was thirty.
+        Before I was thirty I'd visited most of the major art museums in Europe.
         I wrote my PhD thesis in LaTeX with a custom typography package because
-        the default looked bad and that bothered me. I study fragrance note
-        pyramids with the same attention I brought to experimental design.
-        I care about fabrics, cities, the way a room is lit.
+        the default looked bad and that bothered me. Fragrance note pyramids get
+        the same attention I once brought to experimental design. I care about
+        fabrics, cities, the way a room is lit.
       </p>
       <p>
-        The same filter runs through everything else: I read fiction and essays
-        and poetry and manga, but only if the writing is actually good. I watch
-        films for the craft or the ideas, rarely for the spectacle. I play video
-        games that are atmospheric and story-rich — small, precise indie things,
-        not MMOs. I listen to metal for the technical density, to
-        singer-songwriters for the opposite reason, and to most things in between
-        depending on the day. I travel by train whenever possible, because the
-        point is to arrive somewhere genuinely different and pay attention to it.
-        I play football and volleyball and do kickboxing, mostly because moving
-        well matters and because it keeps everything else in balance.
+        The same filter runs through everything else. Fiction, essays, poetry,
+        manga, but only when the writing is good. Films for the craft or the
+        ideas, rarely the spectacle. Video games that are atmospheric and
+        story-rich, small precise indie things rather than MMOs. Metal for its
+        technical density, singer-songwriters for the weight of the words.
+        Trains over planes whenever I can: the scenery, the slowness, the
+        feeling of actually crossing a distance.
       </p>
       <p>
-        <strong>This isn't separate from the scientific work — it's the same
+        Then there's the body. Football and volleyball for the team, the
+        competition, the plain fun of it. Kickboxing and, lately, ballo liscio
+        for the opposite lesson: both put me in the center and ask me to lead,
+        to be decisive, to hold my ground, whether the thing across from me is
+        an opponent or a dance partner. All of it is mindfulness by another
+        name, the body fully present. The gym is the exception, less meditation
+        than measurement, though I keep at the dips and pull-ups partly because
+        calisthenics just looks cool.
+      </p>
+      <p>
+        <strong>This isn't separate from the scientific work: it's the same
         sensibility.</strong> Precision. Attention. The conviction that how
         something is made matters, not just whether it functions. I bring that
         to everything I do, which is either a strength or an inconvenience
@@ -494,32 +538,16 @@
 
   <!-- ============================================================
        SCRIPTS
-       Nav scroll logic — returns immediately on this page
-       since no .hero element exists.
+       No hero on this page — nav is shown immediately, matching
+       experience.html and skills.html.
        ============================================================ -->
   <script>
     (function () {
-      const nav  = document.querySelector('.nav');
-      const hero = document.querySelector('.hero');
-      if (!nav || !hero) return;
-
-      function onScroll() {
-        const heroBottom = hero.getBoundingClientRect().bottom;
-        if (heroBottom < 80) {
-          nav.classList.add('is-visible');
-        } else {
-          nav.classList.remove('is-visible');
-          nav.classList.remove('has-bg');
-          return;
-        }
-        if (heroBottom < 0) {
-          nav.classList.add('has-bg');
-        } else {
-          nav.classList.remove('has-bg');
-        }
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
+      const nav = document.querySelector('.nav');
+      if (!nav) return;
+      document.addEventListener('DOMContentLoaded', function () {
+        nav.classList.add('is-visible', 'has-bg');
+      });
     })();
   </script>
 
