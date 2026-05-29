@@ -231,6 +231,51 @@
     }
 
     /* ============================================================
+       ABOUT WRAPPER
+       Two-column layout mirroring the homepage: the header + body
+       scroll on the left (motif stays capped at 780px), the portrait
+       is sticky on the right. Collapses to one column below 900px.
+       ============================================================ */
+    .about-wrapper {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      /* Subtle gradient spans both columns, matching index.html */
+      background:
+        radial-gradient(
+          ellipse 80% 60% at 75% 50%,
+          rgba(200, 169, 110, 0.055) 0%,
+          transparent 70%
+        ),
+        var(--color-bg);
+    }
+
+    .about-wrapper__right {
+      position: sticky;
+      top: 0;
+      height: 100vh;          /* full-viewport sticky panel */
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8vw;
+      pointer-events: none;
+    }
+
+    .about-portrait {
+      width: 100%;
+      max-width: 1140px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: top;
+    }
+
+    /* Hide the portrait column on tablet and mobile */
+    @media (max-width: 900px) {
+      .about-wrapper        { display: block; }
+      .about-wrapper__right { display: none; }
+    }
+
+    /* ============================================================
        ABOUT BODY
        ============================================================ */
     .about-body {
@@ -384,6 +429,14 @@
   </nav>
 
   <!-- ============================================================
+       ABOUT WRAPPER
+       Left column scrolls (header + body); right column holds the
+       sticky portrait, mirroring the homepage layout.
+       ============================================================ -->
+  <div class="about-wrapper">
+    <div class="about-wrapper__left">
+
+  <!-- ============================================================
        PAGE HEADER
        ============================================================ -->
   <header class="page-header">
@@ -405,7 +458,8 @@
     <!-- ── The lab ──────────────────────────────────────────────── -->
     <section class="about-section" aria-label="The lab">
       <p>
-        My PhD was in physics, but <strong>the lab was cross-disciplinary
+        My PhD, obtained in the labs of Politecnico di Milano and Istituto Italiano di Tecnologia, 
+        was in physics, but <strong>the lab was cross-disciplinary
         from day one</strong> — physicists working with biologists, engineers
         working with clinicians, everyone translating for everyone else.
         I became good at that translation. And at something harder to name:
@@ -428,8 +482,8 @@
     <!-- ── The drift ────────────────────────────────────────────── -->
     <section class="about-section" aria-label="The drift">
       <p>
-        I was still uncertain when I moved to California. The uncertainty
-        didn't last long. The hours saw to that, and so did a slower
+        I was still uncertain when I moved to the University of California. 
+        The uncertainty didn't last long. The hours saw to that, and so did a slower
         realization: <strong>the system works exactly as it's meant to.
         It just wasn't built for what I wanted from it</strong>.
       </p>
@@ -508,8 +562,8 @@
         calisthenics just looks cool.
       </p>
       <p>
-        <strong>This isn't separate from the scientific work: it's the same
-        sensibility.</strong> Precision. Attention. The conviction that how
+        <strong>It's the same sensibility behind the scientific work.</strong>
+        Precision. Attention. The conviction that how
         something is made matters, not just whether it functions. I bring that
         to everything I do, which is either a strength or an inconvenience
         depending on the context.
@@ -517,6 +571,19 @@
     </section>
 
   </div><!-- /.about-body -->
+
+    </div><!-- /.about-wrapper__left -->
+
+    <!-- Portrait photo — sticky on the right -->
+    <div class="about-wrapper__right">
+      <img
+        src="assets/hero-portrait.webp"
+        alt="Leonardo Maver"
+        class="about-portrait"
+      />
+    </div>
+
+  </div><!-- /.about-wrapper -->
 
   <!-- ============================================================
        CLOSING PULL QUOTE

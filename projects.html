@@ -88,13 +88,6 @@
     /* ============================================================
        TYPOGRAPHY HELPERS
        ============================================================ */
-    .display {
-      font-family: var(--font-display);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-    }
-
     .label {
       font-family: var(--font-body);
       font-size: var(--size-xs);
@@ -207,15 +200,19 @@
       border-top: 1px solid var(--color-accent);
     }
 
+    /* Header title — matches the italic DM Serif motif used on
+       about/experience/skills, kept one scale larger as the projects
+       hero and allowed to wrap to two lines. */
     .page-header__title {
       font-family: var(--font-display);
+      font-style: italic;
       font-size: var(--size-3xl);
       font-weight: 400;
-      letter-spacing: -0.025em;
-      line-height: 1.0;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
       color: var(--color-text);
       margin-top: 1rem;
-      max-width: 16ch;
+      max-width: 14ch;
     }
 
     /* ── Page header responsive ─────────────────────────────────── */
@@ -522,7 +519,7 @@
   <header class="page-header">
     <div class="page-header__inner">
       <p class="label">Projects</p>
-      <h1 class="page-header__title display">Built out of curiosity.</h1>
+      <h1 class="page-header__title">Built out of curiosity.</h1>
     </div>
   </header>
 

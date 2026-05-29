@@ -295,15 +295,31 @@
       margin-bottom: 1.75rem;
     }
 
-    /* ── Thesis line ────────────────────────────────────────────── */
+    /* ── Thesis line — left aligned, sits above the description ─── */
     .exp-section__thesis {
       font-family: var(--font-body);
       font-size: var(--size-sm);
       font-weight: 300;
-      font-style: italic;
-      color: var(--color-muted);
       line-height: 1.6;
-      margin-bottom: 1.75rem;
+      color: var(--color-muted);
+      margin-bottom: 0.85rem;
+      max-width: 58ch;
+    }
+
+    .exp-section__thesis-label {
+      font-weight: 500;
+      color: var(--color-text);
+      margin-right: 0.5rem;
+    }
+
+    /* ── One-line description ───────────────────────────────────── */
+    .exp-section__desc {
+      font-family: var(--font-body);
+      font-size: var(--size-md);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
       max-width: 58ch;
     }
 
@@ -440,7 +456,14 @@
       color: inherit;
     }
 
-    /* Year label */
+    /* Year block — start stacked over end, above the dot */
+    .timeline__years {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.15;
+    }
+
     .timeline__year {
       font-family: var(--font-body);
       font-size: var(--size-xs);
@@ -448,6 +471,13 @@
       color: var(--color-muted);
       letter-spacing: 0.06em;
       transition: color var(--transition-fast);
+    }
+
+    /* End year — quieter, sits just under the start */
+    .timeline__year--end {
+      font-size: 0.68rem;
+      font-weight: 400;
+      opacity: 0.7;
     }
 
     /* Short title label */
@@ -500,6 +530,17 @@
       border: none;
     }
 
+    /* Industry (current) — filled accent diamond; a shape shift marks
+       the step off the academic track. */
+    .timeline__dot--current {
+      width: 13px;
+      height: 13px;
+      background: var(--color-accent);
+      border: none;
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
     /* Active state — node highlighted */
     .timeline__node.is-active .timeline__year,
     .timeline__node.is-active .timeline__role {
@@ -516,6 +557,10 @@
     }
 
     .timeline__node.is-active .timeline__dot--filled {
+      box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.25);
+    }
+
+    .timeline__node.is-active .timeline__dot--current {
       box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.25);
     }
 
@@ -596,7 +641,10 @@
         <h2 class="exp-section__title">BSc in Physics</h2>
         <p class="exp-section__institution">Università degli Studi di Milano-Bicocca</p>
         <p class="exp-section__thesis">
-          Thesis: Studio di arrays di SiPM per la lettura di scintillatori veloci.
+          <span class="exp-section__thesis-label">Thesis</span>Studio di arrays di SiPM per la lettura di scintillatori veloci.
+        </p>
+        <p class="exp-section__desc">
+          Physics from the ground up. My first lab work was on photon detectors, and it hooked me on building instruments.
         </p>
       </section>
 
@@ -606,7 +654,10 @@
         <h2 class="exp-section__title">MSc in Particle Physics &amp; Applied Physics</h2>
         <p class="exp-section__institution">Università degli Studi di Milano-Bicocca</p>
         <p class="exp-section__thesis">
-          Thesis: Characterization of Transition-Edge Sensors for the direct measurement of neutrino mass.
+          <span class="exp-section__thesis-label">Thesis</span>Characterization of Transition-Edge Sensors for the direct measurement of neutrino mass.
+        </p>
+        <p class="exp-section__desc">
+          Particle physics, down to sensors precise enough to help weigh a neutrino. Here I learned what a hard measurement actually costs.
         </p>
       </section>
 
@@ -614,9 +665,12 @@
       <section id="phd" class="exp-section">
         <p class="exp-section__period">2018 – 2022</p>
         <h2 class="exp-section__title">PhD in Physics, cum laude</h2>
-        <p class="exp-section__institution">Politecnico di Milano &amp; CNST@IIT, Milan</p>
+        <p class="exp-section__institution">Politecnico di Milano &amp; CNST@IIT (Center for NanoScience and Technology, Istituto Italiano di Tecnologia), Milan</p>
         <p class="exp-section__thesis">
-          Thesis: From thermal to mechanical: shedding light on novel ways to control cell fate.
+          <span class="exp-section__thesis-label">Thesis</span>From thermal to mechanical: shedding light on novel ways to control cell fate.
+        </p>
+        <p class="exp-section__desc">
+          I left particle physics for the messier world of living cells, and spent four years making materials and biology talk to each other.
         </p>
         <div class="bullets">
           <div class="bullet">
@@ -647,6 +701,9 @@
         <p class="exp-section__period">Nov 2022 – Oct 2023</p>
         <h2 class="exp-section__title">Postdoctoral Researcher</h2>
         <p class="exp-section__institution">CNST@IIT, Milan</p>
+        <p class="exp-section__desc">
+          Back at IIT, I took the prototypes from my PhD and turned them into pipelines the whole group could run.
+        </p>
         <div class="bullets">
           <div class="bullet">
             <span class="bullet__strong">Scaled</span>
@@ -668,6 +725,9 @@
         <p class="exp-section__period">Apr 2024 – Aug 2025</p>
         <h2 class="exp-section__title">Postdoctoral Researcher</h2>
         <p class="exp-section__institution">University of California, Irvine</p>
+        <p class="exp-section__desc">
+          I moved to California to build a platform for growing heart cells from stem cells, starting from an empty bench.
+        </p>
         <div class="bullets">
           <div class="bullet">
             <span class="bullet__strong">Designed and validated</span>
@@ -696,11 +756,21 @@
           <p class="label exp-subsection__label">Leadership &amp; Community</p>
           <div class="bullets">
             <div class="bullet">
-              <span class="bullet__strong">Co-organized</span>
-              <span class="bullet__detail">20+ events and a 74-attendee cross-department symposium connecting researchers with academic and industry speakers.</span>
+              <span class="bullet__strong">Board member</span>
+              <span class="bullet__detail">UC Irvine Postdoctoral Association. Co-organized 20+ events and a 74-attendee cross-department symposium connecting researchers with academic and industry speakers.</span>
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- Zeiss -->
+      <section id="zeiss" class="exp-section">
+        <p class="exp-section__period">Jun 2026 – present</p>
+        <h2 class="exp-section__title">Application Specialist — Life Sciences Microscopy</h2>
+        <p class="exp-section__institution">ZEISS, Milan</p>
+        <p class="exp-section__desc">
+          My first role outside academia. The commercial side of the microscopes I spent years pushing past their limits, still in the lab, now helping the scientists who use them.
+        </p>
       </section>
 
       <!-- Publications & Presentations -->
@@ -738,33 +808,57 @@
       <div class="timeline__track"></div>
 
       <a href="#bsc" class="timeline__node" data-target="bsc">
-        <span class="timeline__year">2013</span>
+        <span class="timeline__years">
+          <span class="timeline__year">2013</span>
+          <span class="timeline__year timeline__year--end">2015</span>
+        </span>
         <span class="timeline__dot timeline__dot--outline"></span>
         <span class="timeline__role">BSc</span>
       </a>
 
       <a href="#msc" class="timeline__node" data-target="msc">
-        <span class="timeline__year">2015</span>
+        <span class="timeline__years">
+          <span class="timeline__year">2015</span>
+          <span class="timeline__year timeline__year--end">2017</span>
+        </span>
         <span class="timeline__dot timeline__dot--outline"></span>
         <span class="timeline__role">MSc</span>
       </a>
 
       <a href="#phd" class="timeline__node" data-target="phd">
-        <span class="timeline__year">2018</span>
+        <span class="timeline__years">
+          <span class="timeline__year">2018</span>
+          <span class="timeline__year timeline__year--end">2022</span>
+        </span>
         <span class="timeline__dot timeline__dot--half"></span>
         <span class="timeline__role">PhD</span>
       </a>
 
       <a href="#iit-postdoc" class="timeline__node" data-target="iit-postdoc">
-        <span class="timeline__year">2022</span>
+        <span class="timeline__years">
+          <span class="timeline__year">2022</span>
+          <span class="timeline__year timeline__year--end">2023</span>
+        </span>
         <span class="timeline__dot timeline__dot--filled"></span>
         <span class="timeline__role">IIT Postdoc</span>
       </a>
 
       <a href="#uci-postdoc" class="timeline__node" data-target="uci-postdoc">
-        <span class="timeline__year">2024</span>
+        <span class="timeline__years">
+          <span class="timeline__year">2024</span>
+          <span class="timeline__year timeline__year--end">2025</span>
+        </span>
         <span class="timeline__dot timeline__dot--filled"></span>
         <span class="timeline__role">UCI Postdoc</span>
+      </a>
+
+      <a href="#zeiss" class="timeline__node" data-target="zeiss">
+        <span class="timeline__years">
+          <span class="timeline__year">2026</span>
+          <span class="timeline__year timeline__year--end">now</span>
+        </span>
+        <span class="timeline__dot timeline__dot--current"></span>
+        <span class="timeline__role">ZEISS</span>
       </a>
 
     </aside>
@@ -780,9 +874,6 @@
     </p>
   </footer>
 
-  <!-- ============================================================
-       SCRIPTS
-       ============================================================ -->
   <!-- ============================================================
        SCRIPTS
        ============================================================ -->
