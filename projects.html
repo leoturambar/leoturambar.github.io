@@ -209,10 +209,10 @@
       font-size: var(--size-3xl);
       font-weight: 400;
       letter-spacing: -0.02em;
-      line-height: 1.05;
+      line-height: 1.2;
       color: var(--color-text);
       margin-top: 1rem;
-      max-width: 14ch;
+      max-width: 28ch;
     }
 
     /* ── Page header responsive ─────────────────────────────────── */
@@ -823,30 +823,41 @@
     })();
 
     /* ============================================================
-       SIDEBAR ACTIVE STATE
-       IntersectionObserver: adds .is-active to the sidebar link
-       whose section is intersecting at 30% threshold or more.
+       SIDEBAR ACTIVE STATE — scroll-based
+       A section is active once its top passes the middle of the
+       viewport (last such section wins); the final section is caught
+       by the at-bottom snap. Matches the skills/experience indexes.
        ============================================================ */
     (function () {
-      const sections     = document.querySelectorAll('.project-section');
-      const sidebarLinks = document.querySelectorAll('.sidebar__link');
+      var sections     = document.querySelectorAll('.project-section');
+      var sidebarLinks = document.querySelectorAll('.sidebar__link');
 
       if (!sections.length || !sidebarLinks.length) return;
 
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            sidebarLinks.forEach(function (link) {
-              link.classList.toggle('is-active', link.dataset.target === id);
-            });
+      function getActiveSection() {
+        var middle = window.innerHeight / 2;
+        var active = sections[0];
+        sections.forEach(function (section) {
+          if (section.getBoundingClientRect().top <= middle) {
+            active = section;
           }
         });
-      }, { threshold: 0.3 });
+        return active;
+      }
 
-      sections.forEach(function (section) {
-        observer.observe(section);
-      });
+      function updateActive() {
+        var atBottom = (window.innerHeight + window.scrollY) >=
+                       (document.documentElement.scrollHeight - 2);
+        var activeId = atBottom
+          ? sections[sections.length - 1].id
+          : getActiveSection().id;
+        sidebarLinks.forEach(function (link) {
+          link.classList.toggle('is-active', link.dataset.target === activeId);
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
     })();
   </script>
 

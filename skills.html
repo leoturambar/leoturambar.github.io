@@ -210,7 +210,7 @@
     .page-header__motif {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: var(--size-2xl);
+      font-size: var(--size-3xl);
       font-weight: 400;
       line-height: 1.2;
       letter-spacing: -0.02em;
@@ -234,7 +234,7 @@
        ============================================================ */
     .skills-layout {
       display: grid;
-      grid-template-columns: 1fr 200px;
+      grid-template-columns: 200px 1fr;
       gap: 0 5rem;
       padding: 2rem 8vw 0;
       max-width: 1400px;
@@ -246,6 +246,7 @@
         grid-template-columns: 1fr;
         padding-top: 1rem;
       }
+      .skills-content { grid-column: 1; }
     }
 
     @media (max-width: 560px) {
@@ -253,15 +254,17 @@
     }
 
     /* ============================================================
-       RIGHT INDEX  (sticky category navigation)
+       LEFT INDEX  (sticky category navigation)
        ============================================================ */
     .skills-index {
+      grid-column: 1;            /* index sits on the left */
+      grid-row: 1;               /* same row as content (source order is content-first) */
       position: sticky;
       top: 5.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
-      padding-top: 1rem;
+      padding-top: 3.5rem;   /* aligns first link with the first section title */
       /* Visual alignment: sits next to first section */
     }
 
@@ -291,6 +294,8 @@
        SKILLS CONTENT
        ============================================================ */
     .skills-content {
+      grid-column: 2;            /* content on the right */
+      grid-row: 1;
       min-width: 0;  /* prevent grid column blowout */
       padding-bottom: 8rem;
     }
@@ -326,15 +331,28 @@
       line-height: 1.65;
       color: var(--color-muted);
       margin-bottom: 1.5rem;
-      max-width: 52ch;
+      max-width: none;   /* span the full width of the 3 columns below */
     }
 
     /* ── Skill grid ─────────────────────────────────────────────── */
     .skill-group {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem 2rem;
       margin-top: 1rem;
+    }
+
+    /* Long entries span two columns so they read on one line instead
+       of wrapping. They flow in reading order: a wide item lands in
+       cols 2-3 when one item precedes it in the row, cols 1-2 when it
+       starts a row. Reset to one column on the tablet/phone layouts. */
+    .skill-item--wide {
+      grid-column: span 2;
+    }
+
+    /* Stacked group (e.g. Languages) — one item per row, full width. */
+    .skill-group.skill-group--stack {
+      grid-template-columns: 1fr;
     }
 
     .skill-item {
@@ -362,12 +380,14 @@
 
     /* ── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 900px) {
-      .skill-group { grid-template-columns: 1fr; }
+      .skill-group { grid-template-columns: repeat(2, 1fr); }
+      .skill-item--wide { grid-column: auto; }
     }
 
     @media (max-width: 560px) {
       .skill-section        { padding: 2.5rem 0 3rem; }
       .skill-section__title { font-size: var(--size-lg); }
+      .skill-group          { grid-template-columns: 1fr; }
     }
 
     /* ============================================================
@@ -494,17 +514,19 @@
 
         <p class="label skill-group__label">Microscopy</p>
         <div class="skill-group">
-          <div class="skill-item">Confocal (spinning disk, laser scanning)</div>
+          
           <div class="skill-item">Fluorescence microscopy</div>
           <div class="skill-item">Calcium imaging</div>
           <div class="skill-item">ROS imaging</div>
           <div class="skill-item">Immunostaining</div>
+          <div class="skill-item skill-item--wide">Confocal (spinning disk, laser scanning)</div>
         </div>
 
         <p class="label skill-group__label">Cell Biology</p>
         <div class="skill-group">
           <div class="skill-item">Stem cell differentiation</div>
-          <div class="skill-item">Cell culture — hiPSC, hASC, HEK-293T, MDCK</div>
+          <div class="skill-item skill-item--wide">iPSC-cardiomyocyte differentiation &amp; maturation</div>
+          <div class="skill-item skill-item--wide">Cell culture — hiPSC, hASC, HEK-293T, MDCK</div>
           <div class="skill-item">qPCR</div>
           <div class="skill-item">Proliferation assays</div>
         </div>
@@ -514,6 +536,9 @@
           <div class="skill-item">Spin coating</div>
           <div class="skill-item">Drop casting</div>
           <div class="skill-item">Microcontact printing</div>
+          <div class="skill-item">Microfabrication</div>
+          <div class="skill-item">Surface engineering</div>
+          <div class="skill-item">3D printing</div>
           <div class="skill-item">UV/Vis spectroscopy</div>
           <div class="skill-item">Fluorimetry</div>
           <div class="skill-item">Surface potential</div>
@@ -529,10 +554,13 @@
         </p>
         <div class="skill-group">
           <div class="skill-item">Biomaterials</div>
-          <div class="skill-item">Organic semiconductors (P3HT, PEDOT)</div>
+          <div class="skill-item skill-item--wide">Organic semiconductors (P3HT, PEDOT)</div>
           <div class="skill-item">Stem cell biology</div>
           <div class="skill-item">Nanotechnology</div>
           <div class="skill-item">Bioelectronics</div>
+          <div class="skill-item">Regenerative medicine</div>
+          <div class="skill-item">Cardiac tissue engineering</div>
+          <div class="skill-item">Mechanotransduction</div>
           <div class="skill-item">Experimental design</div>
           <div class="skill-item">Technology readiness assessment</div>
           <div class="skill-item">Multi-institute collaboration</div>
@@ -546,11 +574,12 @@
           Built three production apps. Still learning. Intentionally.
         </p>
         <div class="skill-group">
-          <div class="skill-item">LLM API integration (Anthropic, Ollama)</div>
+          <div class="skill-item skill-item--wide">LLM API integration (Anthropic, Ollama)</div>
           <div class="skill-item">Prompt engineering</div>
           <div class="skill-item">Data analysis &amp; visualization</div>
           <div class="skill-item">Workflow automation</div>
-          <div class="skill-item">Deep learning — image segmentation (Cellpose, ImageJ)</div>
+          <div class="skill-item">Web scraping</div>
+          <div class="skill-item skill-item--wide">Deep learning — image segmentation (Cellpose, ImageJ)</div>
           <div class="skill-item">Streamlit</div>
         </div>
       </section>
@@ -561,7 +590,7 @@
         <p class="skill-section__intro">
           Italian is home. English is work. Spanish is next.
         </p>
-        <div class="skill-group">
+        <div class="skill-group skill-group--stack">
           <div class="skill-item">Italian: native</div>
           <div class="skill-item">English: C1+, working language</div>
           <div class="skill-item">Spanish: intermediate, accelerating</div>
@@ -575,14 +604,14 @@
           Chosen deliberately, not collected.
         </p>
         <div class="skill-group">
-          <div class="skill-item">Google Project Management — Coursera, 2025</div>
-          <div class="skill-item">Lean Six Sigma White Belt — MSI, 2026</div>
+          <div class="skill-item skill-item--wide">Google Project Management — Coursera, 2025</div>
+          <div class="skill-item skill-item--wide">Lean Six Sigma White Belt — MSI, 2026</div>
         </div>
       </section>
 
     </div><!-- /.skills-content -->
 
-    <!-- ── Right index (sticky, desktop only) ───────────────────── -->
+    <!-- ── Left index (sticky, desktop only; placed via grid-column) ── -->
     <nav class="skills-index" aria-label="Skills categories">
       <a href="#technical"        class="skills-index__link" data-target="technical">Technical</a>
       <a href="#tools-environment" class="skills-index__link" data-target="tools-environment">Tools &amp; Environment</a>
@@ -620,36 +649,13 @@
     })();
 
     /* ============================================================
-       SKILL ITEM AUTO-SPAN
-       Items whose text wraps to a second line claim a second column
-       so they don't break the grid rhythm.
-       ============================================================ */
-    (function () {
-      function adjustSkillItems() {
-        document.querySelectorAll('.skill-group').forEach(function (group) {
-          var items = group.querySelectorAll('.skill-item');
-          items.forEach(function (item) { item.style.gridColumn = ''; });
-          items.forEach(function (item) {
-            var lh = parseFloat(getComputedStyle(item).lineHeight) || 24;
-            if (item.offsetHeight > lh * 1.2) {
-              item.style.gridColumn = 'span 2';
-            }
-          });
-        });
-      }
-
-      var resizeTimer;
-      window.addEventListener('load', adjustSkillItems);
-      window.addEventListener('resize', function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(adjustSkillItems, 100);
-      });
-    })();
-
-    /* ============================================================
-       RIGHT INDEX ACTIVE STATE — scroll-based
-       Finds the last section whose top is above 120px from viewport
-       top. Defaults to first section (handles page load + near-top).
+       LEFT INDEX ACTIVE STATE — scroll-based
+       A section is active once its top has scrolled past the middle
+       of the viewport (the last such section wins). The middle line
+       lets the lower sections (AI & Data, Languages) light up — they
+       can't reach the very top before the page bottom, but they do
+       cross the centre. The final section is handled by the
+       at-bottom snap below, since it never reaches the middle.
        ============================================================ */
     (function () {
       var sections   = document.querySelectorAll('.skill-section');
@@ -658,9 +664,10 @@
       if (!sections.length || !indexLinks.length) return;
 
       function getActiveSection() {
+        var middle = window.innerHeight / 2;
         var active = sections[0];
         sections.forEach(function (section) {
-          if (section.getBoundingClientRect().top - 120 <= 0) {
+          if (section.getBoundingClientRect().top <= middle) {
             active = section;
           }
         });
@@ -668,7 +675,14 @@
       }
 
       function updateActive() {
-        var activeId = getActiveSection().id;
+        // The last sections are short, so the page often hits its scroll
+        // limit before their tops cross the threshold. When we're at the
+        // bottom, snap to the final section so it can still light up.
+        var atBottom = (window.innerHeight + window.scrollY) >=
+                       (document.documentElement.scrollHeight - 2);
+        var activeId = atBottom
+          ? sections[sections.length - 1].id
+          : getActiveSection().id;
         indexLinks.forEach(function (link) {
           var target = link.getAttribute('href');
           if (target === '#' + activeId) {

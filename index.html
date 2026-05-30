@@ -580,15 +580,23 @@
       padding: 6vw 8vw 0;
     }
 
-    /* Single row: big "Find me" title on the left, GitHub and
-       LinkedIn (icon + label) sharing the line on the right. */
+    /* One row: "Find me" at 40%, the three links sharing the right 60%
+       (20% each), each right-aligned within its slot. */
     .contact__row {
-      display: flex;
+      display: grid;
+      grid-template-columns: 2fr 3fr;   /* Find me 40% · links 60% */
       align-items: center;
-      gap: 2.5rem;
+      gap: 1.5rem 2.5rem;
       padding-top: 1.75rem;
       border-top: 1px solid var(--color-accent);
-      flex-wrap: wrap;
+    }
+
+    .contact__links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);   /* each link 20% of the row */
+      align-items: center;
+      justify-items: end;                        /* right-aligned in each slot */
+      gap: 1rem;
     }
 
     .contact__title {
@@ -598,17 +606,17 @@
       letter-spacing: -0.02em;
       line-height: 1.0;
       color: var(--color-text);
-      margin-right: auto;   /* pushes the links to the right edge */
+      white-space: nowrap;
     }
 
     .contact__link {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.7rem;
       text-decoration: none;
       color: var(--color-text);
       font-family: var(--font-body);
-      font-size: var(--size-md);
+      font-size: var(--size-lg);
       font-weight: 400;
       letter-spacing: 0.01em;
       transition: color var(--transition-fast);
@@ -650,13 +658,16 @@
 
     /* ── Contact responsive ─────────────────────────────────────── */
     @media (max-width: 900px) {
-      .contact__title { font-size: var(--size-2xl); }
+      .contact__row    { grid-template-columns: 1fr; }
+      .contact__title  { font-size: var(--size-2xl); }
+      .contact__links  { justify-items: start; }
     }
 
     @media (max-width: 560px) {
       .contact         { padding: 6vw 6vw 0; }
-      .contact__row    { gap: 1.5rem 2rem; }
-      .contact__title  { font-size: var(--size-xl); margin-right: 0; flex-basis: 100%; }
+      .contact__row    { grid-template-columns: 1fr; gap: 1.25rem; }
+      .contact__title  { font-size: var(--size-xl); }
+      .contact__links  { grid-template-columns: 1fr; justify-items: start; gap: 0.85rem; }
       .site-footer     { padding: 2.5rem 6vw; margin-top: 4rem; }
     }
 
@@ -841,6 +852,8 @@
 
       <h2 class="contact__title">Find me</h2>
 
+      <div class="contact__links">
+
       <a href="https://github.com/leoturambar"
          class="contact__link"
          target="_blank"
@@ -873,6 +886,19 @@
         </svg>
         <span>LinkedIn</span>
       </a>
+
+      <a href="https://scholar.google.com/citations?user=0VsWUF8AAAAJ&amp;hl=en"
+         class="contact__link"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Google Scholar profile">
+        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+        </svg>
+        <span>Google Scholar</span>
+      </a>
+
+      </div><!-- /.contact__links -->
 
     </div>
 
